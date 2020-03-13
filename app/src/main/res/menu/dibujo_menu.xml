@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_bienvenida"
+            android:icon="@drawable/ic_bienvenida"
+            android:title="@string/bienvenida" />
+        <item
+            android:id="@+id/nav_inscripcion"
+            android:icon="@drawable/ic_inscripcion"
+            android:title="@string/inscripcion" />
+        <item
+            android:id="@+id/nav_restaurante"
+            android:icon="@drawable/ic_restaurante"
+            android:title="@string/pupuserias" />
+    </group>
+    <item android:title="@string/opciones">
+        <menu>
+            <item
+                android:id="@+id/nav_historial"
+                android:icon="@drawable/ic_historial"
+                android:title="@string/historial" />
+            <item
+                android:id="@+id/nav_chat"
+                android:icon="@drawable/ic_chat"
+                android:title="@string/chat" />
+            <item
+                android:id="@+id/nav_salir"
+                android:icon="@drawable/ic_salir"
+                android:title="@string/salir" />
+        </menu>
+    </item>
+</menu>

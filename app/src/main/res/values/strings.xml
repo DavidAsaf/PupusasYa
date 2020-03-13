@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">PupusasYa</string>
+    <string name="bienvenida">Bienvenida</string>
+    <string name="chat">Chat</string>
+    <string name="inscripcion">Inscripcion</string>
+    <string name="opciones">Opciones</string>
+    <string name="salir">Salir</string>
+    <string name="historial">Historial</string>
+    <string name="pupuserias">Pupuserias</string>
+    <string name="aplicacion">PupusasYa!</string>
+    <string name="correo">pupusasya@codinginflow.com</string>
+    <string name="abrir_navegacion"> Abrir navegacion</string>
+    <string name="cerrar_navegacion"> Cerrar navegacion</string>
 </resources>
