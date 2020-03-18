@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="176dp"
     android:background="@color/colorAccent"
-    android:gravity="bottom"
+    android:gravity="center"
     android:orientation="vertical"
     android:padding="16dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
@@ -20,12 +20,14 @@
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
         android:text="@string/aplicacion"
+        android:id="@+id/userNameMenu"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/userEmailMenu"
         android:text="@string/correo" />
 
 </LinearLayout>

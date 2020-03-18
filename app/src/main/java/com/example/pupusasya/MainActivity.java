@@ -6,13 +6,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
+    private TextView m;
+    private EditText k;
+    private String nameCust, lastNameCust, addressCust, phoneCust, emailCust, idCust;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +43,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     new BienvenidaFragmento()).commit();
             navigationView.setCheckedItem(R.id.nav_bienvenida);
         }
+
+        Intent i = this.getIntent();
+        nameCust = i.getStringExtra("Nombre");
+        lastNameCust = i.getStringExtra("Apellido");
+        addressCust = i.getStringExtra("Direccion");
+        emailCust = i.getStringExtra("Email");
+        phoneCust = i.getStringExtra("Telefono");
+        idCust = i.getStringExtra("IdCliente");
+        //m.setText("Hola " + nameCust + " " + lastNameCust + "!");
+
+
+        View hView = navigationView.getHeaderView(0);
+        TextView user = (TextView) hView.findViewById(R.id.userNameMenu);
+        user.setText(nameCust);
+
+        TextView email = (TextView) hView.findViewById(R.id.userEmailMenu);
+        email.setText(emailCust);
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
