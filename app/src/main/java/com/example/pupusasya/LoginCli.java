@@ -28,7 +28,7 @@ import cz.msebera.android.httpclient.Header;
 
 
 public class LoginCli extends AppCompatActivity {
-    //Linea agregada para hacer un push desde consola. Gracias
+    //Mensaje para la alumna de alguien por ahí.
     private EditText usuario;
     private EditText clave;
     private String user, pasw, url, resultado, n, d, di, e, t, c, a;
