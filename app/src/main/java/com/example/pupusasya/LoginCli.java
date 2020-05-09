@@ -1,17 +1,26 @@
 package com.example.pupusasya;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.loopj.android.http.*;
 import org.json.JSONObject;
 
@@ -26,31 +35,36 @@ public class LoginCli extends AppCompatActivity {
     private boolean status = false;
     private String nameCust, lastNameCust, addressCust, phoneCust, emailCust, idCust;
 
+    //Nuevo con firebase
+    private EditText etUsuario;
+    private EditText etClave;
+    private Button btnEntrar;
+    private ProgressDialog progressDialog;
+
+    private FirebaseAuth firebaseAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_cli);
 
+        firebaseAuth = FirebaseAuth.getInstance();
 
-        usuario = findViewById(R.id.etUsuario);
-        clave = findViewById(R.id.etPassword);
+        etUsuario = findViewById(R.id.etUsuario);
+        etClave = findViewById(R.id.etPassword);
+        btnEntrar = findViewById(R.id.btnLogIn);
+
+        progressDialog = new ProgressDialog(this);
 
     }
 
     public void LogInCli(View view) {
 
-        if (usuario.getText().toString().isEmpty()){
-            mError("No ha introducido el nombre de usuario.");
-        }
-        else if (clave.getText().toString().isEmpty()){
-            mError("No ha introducido su contraseña.");
-        }
-        else {
             try {
                 if(verifyConexion() == true)initLogIn();
                 if(verifyConexion() == false) mError("Ups... parece que no tienes conexión a internet");
             } catch (Exception e) { mError("Ups... Parece que hubo un problema, vuelve a intentarlo.");}
-        }
+
     }
 
     public void SignUpCli(View view) {
@@ -83,71 +97,41 @@ public class LoginCli extends AppCompatActivity {
     }
 
     private void initLogIn(){
-        user = usuario.getText().toString();
-        pasw = clave.getText().toString();
-        AsyncHttpClient client = new AsyncHttpClient();
-        url = "https://pupusasya.000webhostapp.com/LogIn.php";
-        RequestParams parametros = new RequestParams();
-        parametros.put("usu", user);
-        parametros.put("pas", pasw);
-        client.post(url, parametros, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                if (statusCode == 200) {
-                    try {
-                        String respuesta = new String(responseBody);
+        final String user = etUsuario.getText().toString().trim();
+        String password = etClave.getText().toString().trim();
 
-                        JSONObject json = new JSONObject(respuesta);
-                        if (json.names().get(0).equals("exito")){
-                            nameCust = json.getString("Nombre");
-                            lastNameCust = json.getString("Apellido");
-                            addressCust = json.getString("Direccion");
-                            phoneCust = json.getString("Celular");
-                            emailCust = json.getString("Email");
-                            idCust = json.getString("IdCliente");
-                            status = true;
+        if (TextUtils.isEmpty(user)){
+            Toast.makeText(this, "Se debe ingresar un usuario", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        if (TextUtils.isEmpty(password)){
+            Toast.makeText(this, "Falta ingresar la contraseña", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        progressDialog.setMessage("Iniciando Sesión");
+        progressDialog.show();
+
+        firebaseAuth.signInWithEmailAndPassword(user, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()){
+                            //Toast.makeText(LoginCli.this, "Bienvenido " + etUsuario.getText(), Toast.LENGTH_SHORT).show();
+
+                            Intent openMain = new Intent(LoginCli.this, MainActivity.class);
+                            openMain.putExtra("Usuario", user);
+                            LoginCli.this.startActivity(openMain);
+                            etUsuario.setText("");
+                            etClave.setText("");
+                            finish();
                         }
                         else {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(LoginCli.this);
-                            builder.setTitle("Aviso").setMessage("Usuario o contraseña incorrectos.")
-                                    .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialogInterface, int i) {
-                                            dialogInterface.dismiss();
-                                        }
-                                    });
-
-                            AlertDialog alertDialog = builder.create();
-                            alertDialog.show();
-                            status = false;
+                            Toast.makeText(LoginCli.this, "Usuario incorrecto " + etUsuario.getText(), Toast.LENGTH_LONG).show();
                         }
-
                     }
-                    catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure (int statusCode, Header[] headers, byte[] responseBody, Throwable error){
-
-            }
-        });
-
-        if (status == true){
-            Intent openMain = new Intent(LoginCli.this, MainActivity.class);
-            openMain.putExtra("Nombre", nameCust);
-            openMain.putExtra("Apellido", lastNameCust);
-            openMain.putExtra("Direccion", addressCust);
-            openMain.putExtra("Telefono", phoneCust);
-            openMain.putExtra("Email", emailCust);
-            openMain.putExtra("IdCliente", idCust);
-            LoginCli.this.startActivity(openMain);
-            usuario.setText("");
-            clave.setText("");
-            finish();
-        }
+                });
     }
 
 }

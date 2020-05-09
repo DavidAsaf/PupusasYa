@@ -45,12 +45,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         Intent i = this.getIntent();
-        nameCust = i.getStringExtra("Nombre");
-        lastNameCust = i.getStringExtra("Apellido");
-        addressCust = i.getStringExtra("Direccion");
-        emailCust = i.getStringExtra("Email");
-        phoneCust = i.getStringExtra("Telefono");
-        idCust = i.getStringExtra("IdCliente");
+        nameCust = i.getStringExtra("Usuario");
         //m.setText("Hola " + nameCust + " " + lastNameCust + "!");
 
 
@@ -59,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         user.setText(nameCust);
 
         TextView email = (TextView) hView.findViewById(R.id.userEmailMenu);
-        email.setText(emailCust);
+        email.setText(nameCust);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
