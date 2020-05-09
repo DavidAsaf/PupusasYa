@@ -30,7 +30,6 @@ import cz.msebera.android.httpclient.Header;
 public class LoginCli extends AppCompatActivity {
 
     //UNICAES
-    //Evelyn
     private EditText usuario;
     private EditText clave;
     private String user, pasw, url, resultado, n, d, di, e, t, c, a;
