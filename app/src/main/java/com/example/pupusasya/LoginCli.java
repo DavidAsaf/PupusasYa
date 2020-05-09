@@ -28,12 +28,10 @@ import cz.msebera.android.httpclient.Header;
 
 
 public class LoginCli extends AppCompatActivity {
-<<<<<<< HEAD
+
     //Aprendizaje avanzado de quinto annio...
-=======
     //Mensaje para la alumna de alguien por ahí.
     //probando un gitpull -- estamos aprendiendo y bastante jaja digo yo... o tal vez repasando...
->>>>>>> 3614bfd89f85fe55f7cf79467836c405f1b46241
     private EditText usuario;
     private EditText clave;
     private String user, pasw, url, resultado, n, d, di, e, t, c, a;
