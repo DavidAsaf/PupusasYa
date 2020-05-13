@@ -97,4 +97,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             super.onBackPressed();
         }
         }
+
+    public void listaPupuserias(View view) {
+        Intent openMain = new Intent(MainActivity.this, SeleccionarPupActivity.class);
+        MainActivity.this.startActivity(openMain);
+
+    }
 }

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:mlns="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/etPupuseria"
+            android:layout_width="180dp"
+            android:layout_height="70dp"
+            android:text="@string/nombrePupuseria"
+            android:textColor="@color/colorDarkBlue"
+            android:textSize="20dp"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/etDepartamento"
+            android:layout_width="180dp"
+            android:layout_height="70dp"
+            android:text="@string/nombreDepartamento"
+            android:textColor="@color/colorDarkBlue"
+            android:textSize="20dp"
+            android:gravity="center"/>
+
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -68,4 +68,5 @@
     <string name="nombrePupuseria">Pupuseria</string>
     <string name="codigoPup">Codigo Pupuseria</string>
     <string name="btnTextAdd">Agregar</string>
+    <string name="nombreDepartamento">nombreDepartamento</string>
 </resources>

@@ -13,19 +13,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".AgregarPupuseriaActivity"></activity>
+        <activity android:name=".SeleccionarPupActivity"
+            android:configChanges="screenSize|orientation"
+            android:windowSoftInputMode="stateHidden"></activity>
+        <activity android:name=".listaPupuseriasActivity" />
         <activity
             android:name=".LoginCli"
             android:label="@string/title_activity_login_cli"
             android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
     </application>

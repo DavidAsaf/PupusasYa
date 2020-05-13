@@ -135,4 +135,7 @@ public class LoginCli extends AppCompatActivity {
                 });
     }
 
+    public void abrirListaPupuserias(View view) {
+
+    }
 }
