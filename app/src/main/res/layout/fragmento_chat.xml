@@ -22,7 +22,7 @@
             android:id="@+id/nombre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Karen"
+            android:text="Karen-prueba"
             android:gravity="center"
             />
     </LinearLayout>
