@@ -7,21 +7,46 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.pupusasya.Clases.Conexion;
 import com.google.android.material.navigation.NavigationView;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.ArrayList;
+
+import cz.msebera.android.httpclient.Header;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
     private TextView m;
     private EditText k;
     private String nameCust, lastNameCust, addressCust, phoneCust, emailCust, idCust;
+    public String usuarioOnline;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +65,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(savedInstanceState==null){
 
             getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,
-                    new BienvenidaFragmento()).commit();
-            navigationView.setCheckedItem(R.id.nav_bienvenida);
+                    new PupuseriasFragmento()).commit();
+            navigationView.setCheckedItem(R.id.nav_restaurante);
         }
 
         Intent i = this.getIntent();
         nameCust = i.getStringExtra("Usuario");
         //m.setText("Hola " + nameCust + " " + lastNameCust + "!");
+
 
 
         View hView = navigationView.getHeaderView(0);
@@ -56,6 +82,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         TextView email = (TextView) hView.findViewById(R.id.userEmailMenu);
         email.setText(nameCust);
         navigationView.setNavigationItemSelectedListener(this);
+
+        //Esto es como un tipo variable de sesion, se guardan los datos para usarlos en otro activity.
+        SharedPreferences prefs = getSharedPreferences("MisPreferencias",Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("usuario", "admin");
+        editor.commit();
+
+
     }
 
     @Override
@@ -76,6 +110,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_historial:
                 getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,
                         new HistorialFragmento()).commit();
+                //cargarPupuserias();
                 break;
             case R.id.nav_chat:
                 getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,
@@ -89,6 +124,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
+
+
     @Override
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -98,9 +135,4 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         }
 
-    public void listaPupuserias(View view) {
-        Intent openMain = new Intent(MainActivity.this, SeleccionarPupActivity.class);
-        MainActivity.this.startActivity(openMain);
-
-    }
 }

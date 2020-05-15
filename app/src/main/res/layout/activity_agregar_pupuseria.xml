@@ -3,41 +3,190 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     tools:context=".AgregarPupuseriaActivity"
-    android:background="@color/colorDarkBlue">
+    android:background="@color/colorDarkBlue"
+    android:gravity="center">
 
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp">
         <TextView
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:gravity="center"
+            android:text="Selección de Pupuserias"
             android:textColor="@color/colorWhite"
-            android:id="@+id/etIdPupuseria"
-            android:text="@string/codigoPup"
-            android:visibility="gone"
-        />
-    <TextView
-        android:id="@+id/etPupuseria"
-        android:layout_width="220dp"
-        android:layout_height="wrap_content"
-        android:text="@string/nombrePupuseria"
-        android:textColor="@color/colorWhite"
-        android:textSize="20dp" />
+            android:textSize="25sp"
+            />
+    </LinearLayout>
 
-    <Button
-        android:layout_width="100dp"
+    <LinearLayout
+        android:layout_width="375dp"
         android:layout_height="wrap_content"
-        android:text="@string/btnTextAdd"
-        android:id="@+id/btnSelect"
-        android:background="#25BB22"
-        android:textColor="@color/colorWhite"
-        />
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@drawable/esquinas_redondeadas"
+        >
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp">
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:textColor="@color/colorWhite"
+                android:id="@+id/etIdPupuseria"
+                android:text="@string/codigoPup"
+                android:visibility="gone"
+                />
+
+            <TextView
+                android:id="@+id/tvPupuseria"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nombrePupuseria"
+                android:textColor="@color/colorOrange"
+                android:textSize="30sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dirección: "
+                android:textSize="20sp"
+                android:textColor="@color/colorDarkBlue"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp">
+            <TextView
+                android:id="@+id/tvDireccion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="15sp"
+                android:textColor="@color/colorOrange"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Teléfono: "
+                android:textSize="20sp"
+                android:textColor="@color/colorDarkBlue"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp">
+            <TextView
+                android:id="@+id/tvTelefono"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="25sp"
+                android:textColor="@color/colorRed"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Celular: "
+                android:textSize="20sp"
+                android:textColor="@color/colorDarkBlue"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp">
+            <TextView
+                android:id="@+id/tvCelular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="25sp"
+                android:textColor="@color/colorRed"/>
+        </LinearLayout>
 
 </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvEstado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Estado"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp"/>
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="@string/btnTextAdd"
+            android:id="@+id/btnSelect"
+            android:background="#25BB22"
+            android:textColor="@color/colorWhite"
+            android:layout_marginBottom="10dp"
+            android:onClick="agregarPupuseria"
+            />
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="Volver"
+            android:id="@+id/btnVolver"
+            android:background="#FF5722"
+            android:textColor="@color/colorWhite"
+            android:onClick="volver"
+            />
+    </LinearLayout>
 
 </LinearLayout>

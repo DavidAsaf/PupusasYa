@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.pupusasya.Clases.Conexion;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -31,7 +32,7 @@ import cz.msebera.android.httpclient.Header;
 
 public class SeleccionarPupActivity extends AppCompatActivity {
     private ListView lista;
-    private ArrayList nombre, precio, idproduto, departamento;
+    private ArrayList nombre, idproduto, departamento, direccion, telefono, celular;
     private TextView m;
     private EditText txtBuscarPup;
     private String id, resultado;
@@ -48,6 +49,9 @@ public class SeleccionarPupActivity extends AppCompatActivity {
         nombre = new ArrayList();
         departamento = new ArrayList();
         idproduto = new ArrayList();
+        direccion = new ArrayList();
+        telefono = new ArrayList();
+        celular = new ArrayList();
 
         downloadData();
 
@@ -70,17 +74,30 @@ public class SeleccionarPupActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent openLista = new Intent(SeleccionarPupActivity.this, MainActivity.class);
+        SeleccionarPupActivity.this.startActivity(openLista);
+
+        finish();
+    }
+
     private void downloadData() {
         //int idpupuseria = Integer.parseInt(id);
         nombre.clear();
         idproduto.clear();
         departamento.clear();
+        telefono.clear();
+        celular.clear();
+        direccion.clear();
 
         final ProgressDialog progressDialog = new ProgressDialog(SeleccionarPupActivity.this);
         progressDialog.setMessage("Cargando Datos...");
         progressDialog.show();
         AsyncHttpClient client = new AsyncHttpClient();
-        String url = "http://192.168.1.8/pupusasya/allPupuserias.php";
+        Conexion connect = new Conexion();
+        String url = connect.getUrlDireccion() +"allPupuserias.php";
         RequestParams parametros = new RequestParams();
 
         client.get(url, parametros, new AsyncHttpResponseHandler() {
@@ -95,24 +112,28 @@ public class SeleccionarPupActivity extends AppCompatActivity {
                             idproduto.add(jsonArray.getJSONObject(i).getString("IdPupuseria"));
                             nombre.add(jsonArray.getJSONObject(i).getString("Nombre"));
                             departamento.add(jsonArray.getJSONObject(i).getString("Departamento"));
+                            direccion.add(jsonArray.getJSONObject(i).getString("Direccion"));
+                            telefono.add(jsonArray.getJSONObject(i).getString("Telefono"));
+                            celular.add(jsonArray.getJSONObject(i).getString("Celular"));
                         }
 
-                        lista.setAdapter(new CustonAdater(getApplicationContext(), nombre, departamento));
+                        lista.setAdapter(new CustonAdater(getApplicationContext(), nombre, departamento, direccion, telefono, celular));
 
-                        final CustonAdater CustonAdater = new CustonAdater(SeleccionarPupActivity.this, nombre, departamento);
+                        final CustonAdater CustonAdater = new CustonAdater(SeleccionarPupActivity.this, nombre, departamento, direccion, telefono, celular);
                         lista.setAdapter(CustonAdater);
                         progressDialog.dismiss();
 
                         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                                /*intent = new Intent(view.getContext(),ProductoEditarActivity.class);
-                                intent.putExtra("nombre", String.valueOf(nombre.get(position)));
-                                //intent.putExtra("precio", String.valueOf(precio.get(position)));
-                                intent.putExtra("id", String.valueOf(idproduto.get(position)));*/
+                                intent = new Intent(view.getContext(), AgregarPupuseriaActivity.class);
+                                intent.putExtra("Pupuseria", String.valueOf(nombre.get(position)));
+                                intent.putExtra("Direccion", String.valueOf(direccion.get(position)));
+                                intent.putExtra("Telefono", String.valueOf(telefono.get(position)));
+                                intent.putExtra("Celular", String.valueOf(celular.get(position)));
 
-
-                                //startActivity(intent);
+                                startActivity(intent);
+                                finish();
                             }
                         });
 
@@ -133,12 +154,16 @@ public class SeleccionarPupActivity extends AppCompatActivity {
         idproduto.clear();
         nombre.clear();
         departamento.clear();
+        direccion.clear();
+        telefono.clear();
+        celular.clear();
 
         final ProgressDialog progressDialog = new ProgressDialog(SeleccionarPupActivity.this);
         progressDialog.setMessage("Cargar Datos...");
         progressDialog.show();
         AsyncHttpClient client = new AsyncHttpClient();
-        String url = "http://192.168.1.8/pupusasya/pupuseriasByName.php";
+        Conexion connect = new Conexion();
+        String url = connect.getUrlDireccion() + "pupuseriasByName.php";
         RequestParams parametros = new RequestParams();
         parametros.put("name", name);
 
@@ -154,10 +179,12 @@ public class SeleccionarPupActivity extends AppCompatActivity {
                             idproduto.add(jsonArray.getJSONObject(i).getString("IdPupuseria"));
                             nombre.add(jsonArray.getJSONObject(i).getString("Nombre"));
                             departamento.add(jsonArray.getJSONObject(i).getString("Departamento"));
-
+                            direccion.add(jsonArray.getJSONObject(i).getString("Direccion"));
+                            telefono.add(jsonArray.getJSONObject(i).getString("Telefono"));
+                            celular.add(jsonArray.getJSONObject(i).getString("Celular"));
                         }
 
-                        lista.setAdapter(new CustonAdater(getApplicationContext(), nombre, departamento));
+                        lista.setAdapter(new CustonAdater(getApplicationContext(), nombre, departamento, direccion, telefono, celular));
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -175,10 +202,10 @@ public class SeleccionarPupActivity extends AppCompatActivity {
     private class CustonAdater extends BaseAdapter {
         Context ctx;
         LayoutInflater layoutInflater;
-        TextView etnombre, etDepartamento, etid;
+        TextView etnombre, etDepartamento, etid, etDireccion, etTelefono, etCelular;
         Button btnSelect;
 
-        public CustonAdater(Context applicationContext, ArrayList nombre, ArrayList departamento) {
+        public CustonAdater(Context applicationContext, ArrayList nombre, ArrayList departamento, ArrayList direccion, ArrayList telefono, ArrayList celular) {
             this.ctx = applicationContext;
             layoutInflater = (LayoutInflater) this.ctx.getSystemService(LAYOUT_INFLATER_SERVICE);
 
@@ -204,13 +231,18 @@ public class SeleccionarPupActivity extends AppCompatActivity {
             ViewGroup viewGroup = (ViewGroup) layoutInflater.inflate(R.layout.listapupusas, null);
             etnombre = (TextView) viewGroup.findViewById(R.id.etPupuseria);
             etDepartamento = (TextView) viewGroup.findViewById(R.id.etDepartamento);
+            etDireccion = (TextView) viewGroup.findViewById(R.id.tvDireccion);
+            etTelefono = (TextView) viewGroup.findViewById(R.id.tvTelefono);
+            etCelular = (TextView) viewGroup.findViewById(R.id.tvCelular);
             //tnSelect = viewGroup.findViewById(R.id.btnSelect);
             //etid = (TextView) viewGroup.findViewById(R.id.etIdPupuseria);
 
             etnombre.setText(nombre.get(position).toString());
             //etid.setText(idproduto.get(position).toString());
             etDepartamento.setText(departamento.get(position).toString());
-
+            etDireccion.setText(direccion.get(position).toString());
+            etTelefono.setText(telefono.get(position).toString());
+            etCelular.setText(celular.get(position).toString());
             return viewGroup;
         }
 
