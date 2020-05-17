@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:mlns="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvIdPupusa"
+            android:visibility="gone"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvIdPupuseria"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/tvEspecialidad"
+            android:layout_width="180dp"
+            android:layout_height="70dp"
+            android:text="Especialidad"
+            android:textColor="@color/colorDarkBlue"
+            android:textSize="20dp"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/tvPrecio"
+            android:layout_width="180dp"
+            android:layout_height="70dp"
+            android:text="Precio Unidad"
+            android:textColor="@color/colorDarkBlue"
+            android:textSize="20dp"
+            android:gravity="center"/>
+
+
+    </LinearLayout>
+
+</LinearLayout>

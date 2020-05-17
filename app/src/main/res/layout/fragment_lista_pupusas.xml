@@ -25,7 +25,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Pupuserias disponibles"
+                android:text="Especialidades disponibles"
                 android:id="@+id/tvMessage1"
                 android:textSize="25sp"
                 android:textColor="@color/colorWhite"
@@ -41,8 +41,8 @@
             <EditText
                 android:layout_width="300dp"
                 android:layout_height="50dp"
-                android:hint="Buscar Pupuseria"
-                android:id="@+id/etBuscarPup"
+                android:hint="Buscar Especialidad"
+                android:id="@+id/etBuscarEspecialidad"
                 android:gravity="center"
                 android:textColor="@color/colorOrange"
                 android:textColorHint="@color/colorOrange"
@@ -56,29 +56,6 @@
             android:layout_width="match_parent"
             android:layout_height="20dp"></LinearLayout>
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="20dp">
-
-            <TextView
-                android:id="@+id/etProduct"
-                android:layout_width="201dp"
-                android:layout_height="wrap_content"
-                android:text="Pupuseria"
-                android:textColor="@color/colorWhite"
-                android:textSize="20dp" />
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:textColor="@color/colorWhite"
-                android:id="@+id/etPreci"
-                android:text="Departamento"
-                />
-
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -91,7 +68,7 @@
             <ListView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/listaPupuserias"
+                android:id="@+id/listaEspecialidades"
                 />
 
         </LinearLayout>
