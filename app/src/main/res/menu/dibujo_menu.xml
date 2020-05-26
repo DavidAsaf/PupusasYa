@@ -4,19 +4,16 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_restaurante"
-            android:icon="@drawable/ic_restaurante"
-            android:title="Inicio" />
+
         <item
             android:id="@+id/nav_bienvenida"
             android:icon="@drawable/ic_bienvenida"
             android:title="@string/bienvenida" />
-        <item
-            android:id="@+id/nav_inscripcion"
-            android:icon="@drawable/ic_inscripcion"
-            android:title="@string/inscripcion" />
 
+        <item
+            android:id="@+id/nav_restaurante"
+            android:icon="@drawable/ic_restaurante"
+            android:title="Pupuseria" />
     </group>
     <item android:title="@string/opciones">
         <menu>

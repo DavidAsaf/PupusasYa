@@ -19,6 +19,7 @@
     <string name="previous">Previous</string>
     <string name="usuarioPref">usuario</string>
 
+
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
@@ -73,4 +74,9 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--bienvenidad -->
+    <string name="bienve">Bienvenidos a la gran familia, para nosotros es un placer que uses
+        esta aplicación.Es muy fácil de usar y puedes utilizarla cada vez que lo necesites y solicitar tu pedido de PUPUSAS!...Estamos a la Orden!!</string>
+
 </resources>

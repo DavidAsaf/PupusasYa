@@ -69,8 +69,8 @@ public class LoginCli extends AppCompatActivity {
     }
 
     public void SignUpCli(View view) {
-        //Intent open = new Intent(LoginCli.this, SignUpCli.class);
-        //LoginCli.this.startActivity(open);
+//        Intent open = new Intent(LoginCli.this, SignUpCli.class);
+  //      LoginCli.this.startActivity(open);
     }
 
     private boolean verifyConexion(){
@@ -138,4 +138,5 @@ public class LoginCli extends AppCompatActivity {
     public void abrirListaPupuserias(View view) {
 
     }
+
 }

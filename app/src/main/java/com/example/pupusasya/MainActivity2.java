@@ -65,10 +65,7 @@ public class MainActivity2 extends AppCompatActivity implements NavigationView.O
                 getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,
                         new BienvenidaFragmento()).commit();
                 break;
-            case R.id.nav_inscripcion:
-                getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,
-                        new InscripcionFragmento()).commit();
-                break;
+
             case R.id.nav_restaurante:
                 getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment,
                         new PupuseriasFragmento()).commit();

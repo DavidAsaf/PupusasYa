@@ -6,7 +6,7 @@ public class Conexion
         return urlDireccion;
     }
 
-    String urlDireccion = "http://192.168.1.8/pupusasya/";
+    String urlDireccion = "http://192.168.0.10/pupusasya/";
 
 
 }
