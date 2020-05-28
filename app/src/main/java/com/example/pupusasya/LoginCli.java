@@ -69,8 +69,8 @@ public class LoginCli extends AppCompatActivity {
     }
 
     public void SignUpCli(View view) {
-//        Intent open = new Intent(LoginCli.this, SignUpCli.class);
-  //      LoginCli.this.startActivity(open);
+    Intent open = new Intent(LoginCli.this, RegistroActivity.class);
+      LoginCli.this.startActivity(open);
     }
 
     private boolean verifyConexion(){
