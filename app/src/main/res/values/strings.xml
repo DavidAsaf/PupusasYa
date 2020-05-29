@@ -78,5 +78,9 @@
     <!--bienvenidad -->
     <string name="bienve">Bienvenidos a la gran familia, para nosotros es un placer que uses
         esta aplicación.Es muy fácil de usar y puedes utilizarla cada vez que lo necesites y solicitar tu pedido de PUPUSAS!...Estamos a la Orden!!</string>
+    <string name="messaje" />
+    <string name="name" />
+    <string name="textview">TextView</string>
+    <string name="message" />
 
 </resources>
