@@ -24,12 +24,13 @@ public class AdapterRVMensajes extends RecyclerView.Adapter<AdapterRVMensajes.Me
 
     @Override
     public void onBindViewHolder(@NonNull MensajeHolder mensajeHolder, int i) {
-        mensajeHolder.tvName.setText(lstMensajes.get(i).getName());
-        mensajeHolder.tvMessage.setText(lstMensajes.get(i).getMessage());
+        mensajeHolder.tvName.setText(lstMensajes.get(i).getName1());
+        mensajeHolder.tvMessage.setText(lstMensajes.get(i).getMessage1());
     }
 
     @Override
     public int getItemCount() {
+
         return lstMensajes.size();
     }
 

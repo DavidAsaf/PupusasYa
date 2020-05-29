@@ -68,13 +68,14 @@ public class MainActivity2 extends AppCompatActivity {
                 });
 
         btnSend.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 if(etName.length() == 0 || etMensaje.length() == 0)
                     return;
                 MensajeVO mMensajeVO = new MensajeVO();
-                mMensajeVO.setMessage(etMensaje.getText().toString());
-                mMensajeVO.setName(etName.getText().toString());
+                mMensajeVO.setMessage1(etMensaje.getText().toString());
+                mMensajeVO.setName1(etName.getText().toString());
                 FirebaseFirestore.getInstance().collection("Chat").add(mMensajeVO);
                 etMensaje.setText("");
                 //etName.setText("");

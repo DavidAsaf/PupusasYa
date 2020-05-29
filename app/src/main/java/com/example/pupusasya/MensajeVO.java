@@ -2,22 +2,23 @@ package com.example.pupusasya;
 
 public class MensajeVO {
 
-    private String name;
-    private String message;
+    private String name1;
+    private String message1;
 
-    public String getName() {
-        return name;
+
+    public String getName1() {
+        return name1;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName1(String name1) {
+        this.name1 = name1;
     }
 
-    public String getMessage() {
-        return message;
+    public String getMessage1() {
+        return message1;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setMessage1(String message1) {
+        this.message1 = message1;
     }
 }
