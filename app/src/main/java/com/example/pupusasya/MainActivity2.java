@@ -1,94 +1,105 @@
 package com.example.pupusasya;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.firestore.DocumentChange;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
-import java.util.ArrayList;
-import java.util.List;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity2 extends AppCompatActivity {
 
+    private CircleImageView fotoPerfil;
+    private TextView nombre;
     private RecyclerView rvMensajes;
-    private EditText etName;
-    private EditText etMensaje;
-    private ImageButton btnSend;
+    private EditText txtMensaje;
+    private Button btnEnviar;
+    private AdapterMensajes adapter;
 
-    private List<MensajeVO> lstMensajes;
-    private AdapterRVMensajes mAdapterRVMensajes;
-
-    private void setComponents(){
-        rvMensajes = findViewById(R.id.rvMensajes);
-        etName = findViewById(R.id.etName);
-        etMensaje = findViewById(R.id.etMensaje);
-        btnSend = findViewById(R.id.btnSend);
-
-        lstMensajes = new ArrayList<>();
-        mAdapterRVMensajes = new AdapterRVMensajes(lstMensajes);
-        rvMensajes.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        rvMensajes.setAdapter(mAdapterRVMensajes);
-        rvMensajes.setHasFixedSize(true);
-
-        FirebaseFirestore.getInstance().collection("Chat")
-                .addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                        for (DocumentChange mDocumentChange : queryDocumentSnapshots.getDocumentChanges()){
-                            if(mDocumentChange.getType() == DocumentChange.Type.ADDED){
-                                lstMensajes.add(mDocumentChange.getDocument().toObject(MensajeVO.class));
-                                mAdapterRVMensajes.notifyDataSetChanged();
-                                rvMensajes.smoothScrollToPosition(lstMensajes.size());
-                            }
-                        }
-                    }
-                });
-
-        btnSend.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                if(etName.length() == 0 || etMensaje.length() == 0)
-                    return;
-                MensajeVO mMensajeVO = new MensajeVO();
-                mMensajeVO.setMessage1(etMensaje.getText().toString());
-                mMensajeVO.setName1(etName.getText().toString());
-                FirebaseFirestore.getInstance().collection("Chat").add(mMensajeVO);
-                etMensaje.setText("");
-                //etName.setText("");
-            }
-        });
-    }
+    private FirebaseDatabase database;
+    private DatabaseReference databaseReference;
+    private FirebaseStorage storage;
+    private StorageReference storageReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragmento_chat);
-        setComponents();
+
+        fotoPerfil = (CircleImageView) findViewById(R.id.fotoPerfil);
+        nombre= (TextView) findViewById(R.id.nombre);
+        rvMensajes = (RecyclerView) findViewById(R.id.rvMensajes);
+        txtMensaje = (EditText) findViewById(R.id.txtMensaje);
+        btnEnviar = (Button) findViewById(R.id.btnEnviar);
+
+        database = FirebaseDatabase.getInstance();
+        databaseReference = database.getReference("chat");//Sala de chat (nombre)
+        storage = FirebaseStorage.getInstance();
+
+        adapter = new AdapterMensajes(this);
+        LinearLayoutManager l = new LinearLayoutManager(this);
+        rvMensajes.setLayoutManager(l);
+        rvMensajes.setAdapter(adapter);
+
+        btnEnviar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                adapter.addMensaje(new Mensaje(txtMensaje.getText().toString(),nombre.getText().toString(),"","1","00:00"));
+
+                txtMensaje.setText("");
+            }
+        });
+        adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onItemRangeInserted(int positionStart, int itemCount) {
+                super.onItemRangeInserted(positionStart, itemCount);
+                setScrollbar();
+            }
+        });
+
+        databaseReference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Mensaje m = dataSnapshot.getValue(Mensaje.class);
+                adapter.addMensaje(m);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
-
-
+    private void setScrollbar(){
+        rvMensajes.scrollToPosition(adapter.getItemCount()-1);
+    }
 }

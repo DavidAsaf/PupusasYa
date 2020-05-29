@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.pupusasya.MainActivity2.MainActivity2">
+    tools:context="com.example.pupusasya.MainActivity2"
+    android:padding="10sp"
+    android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        tools:ignore="MissingConstraints">
-
+        android:orientation="horizontal">
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/fotoPerfil"
             android:layout_width="48sp"
@@ -24,72 +24,33 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Karen" />
+            android:text="PupusasYa!!"
+            android:textSize="18sp" />
+    </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvMensajes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+    </androidx.recyclerview.widget.RecyclerView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/txtMensaje"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Escribe un mensaje"
+            android:layout_weight="1"/>
+        <Button
+            android:id="@+id/btnEnviar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Enviar"/>
     </LinearLayout>
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvMensajes"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/etName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
-    <EditText
-        android:id="@+id/etMensaje"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:ems="10"
-        android:hint="@string/message"
-        android:inputType="textMultiLine"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnSend"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/etName"
-        android:layout_width="288dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:backgroundTint="#2A7871"
-        android:ems="10"
-        android:hint="@string/name"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/etMensaje"
-        app:layout_constraintEnd_toStartOf="@+id/btnSend"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/nombre2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/nombrec"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="570dp"
-        tools:ignore="MissingConstraints" />
-
-    <ImageButton
-        android:id="@+id/btnSend"
-        android:layout_width="40dp"
-        android:layout_height="88dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@android:color/transparent"
-        android:tint="@color/colorPrimary"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_send" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
