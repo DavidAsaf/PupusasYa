@@ -42,7 +42,7 @@
             android:id="@+id/txtMensaje"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Escribe un mensaje"
+            android:hint="Escribe Mensaje"
             android:layout_weight="1"/>
         <Button
             android:id="@+id/btnEnviar"
