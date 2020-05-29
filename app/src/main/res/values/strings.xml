@@ -87,5 +87,7 @@
     <string name="textview">TextView</string>
     <string name="message" />
     <string name="nombrec">Nombre:</string>
+    <string name="pupusasya">PupusasYa!!</string>
+
 
 </resources>
