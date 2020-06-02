@@ -9,6 +9,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HolderMensaje extends RecyclerView.ViewHolder {
 
+
     private TextView nombre;
     private TextView mensaje;
     private TextView hora;
