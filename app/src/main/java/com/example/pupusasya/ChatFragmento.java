@@ -16,4 +16,5 @@ public class ChatFragmento extends Fragment {
         return inflater.inflate(R.layout.fragmento_chat, container, false);
 
     }
+
 }

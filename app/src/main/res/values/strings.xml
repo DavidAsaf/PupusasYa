@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PupusasYa</string>
+    <string name="app_name">PupusasYa!</string>
     <string name="bienvenida">Bienvenida</string>
     <string name="chat">Chat</string>
     <string name="inscripcion">Inscripcion</string>
@@ -78,5 +78,34 @@
     <!--bienvenidad -->
     <string name="bienve">Bienvenidos a la gran familia, para nosotros es un placer que uses
         esta aplicación.Es muy fácil de usar y puedes utilizarla cada vez que lo necesites y solicitar tu pedido de PUPUSAS!...Estamos a la Orden!!</string>
+    <string name="title_activity_bienvenida">BienvenidaActivity</string>
+
+    <string-array name="cantidad">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
+        <item>25</item>
+    </string-array>
 
 </resources>

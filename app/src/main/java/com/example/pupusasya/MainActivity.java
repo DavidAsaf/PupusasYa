@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //Esto es como un tipo variable de sesion, se guardan los datos para usarlos en otro activity.
         SharedPreferences prefs = getSharedPreferences("MisPreferencias",Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putString("usuario", "admin");
+        editor.putString("usuario", "david.amaya@catolica.edu.sv");
         editor.commit();
 
 
@@ -114,7 +114,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         new ChatFragmento()).commit();
                 break;
             case R.id.nav_salir:
-                Toast.makeText(this, "Salir", Toast.LENGTH_SHORT).show();
+                Intent open = new Intent(getApplicationContext(), LoginCli.class);
+                startActivity(open);
+                finish();
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);

@@ -1,8 +1,11 @@
 package com.example.pupusasya;
 
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -15,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,6 +28,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.pupusasya.Adapter.Pupuserias_Adapter;
 import com.example.pupusasya.Clases.Conexion;
+import com.example.pupusasya.Clases.pupuseriaDB;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -40,7 +45,7 @@ import static com.firebase.ui.auth.AuthUI.getApplicationContext;
 
 public class PupuseriasFragmento extends Fragment {
     private ListView lista;
-    private ArrayList nombre, idproduto, departamento, direccion, telefono, celular;
+    private ArrayList nombre, idPupuseria, departamento, direccion, telefono, celular;
     private TextView m;
     private EditText txtBuscarPup;
     private String id, resultado;
@@ -57,7 +62,7 @@ public class PupuseriasFragmento extends Fragment {
         txtBuscarPup = vista.findViewById(R.id.etBuscarPup);
         nombre = new ArrayList();
         departamento = new ArrayList();
-        idproduto = new ArrayList();
+        idPupuseria = new ArrayList();
         direccion = new ArrayList();
         telefono = new ArrayList();
         celular = new ArrayList();
@@ -87,7 +92,7 @@ public class PupuseriasFragmento extends Fragment {
 
     private void cargarPupuserias(){
         nombre.clear();
-        idproduto.clear();
+        idPupuseria.clear();
         departamento.clear();
         telefono.clear();
         celular.clear();
@@ -110,18 +115,19 @@ public class PupuseriasFragmento extends Fragment {
 
                         JSONArray jsonArray = new JSONArray(new String(responseBody));
                         for (int i = 0; i < jsonArray.length(); i++) {
-                            idproduto.add(jsonArray.getJSONObject(i).getString("IdPupuseria"));
+                            idPupuseria.add(jsonArray.getJSONObject(i).getString("IdPupuseria"));
                             nombre.add(jsonArray.getJSONObject(i).getString("Nombre"));
                             departamento.add(jsonArray.getJSONObject(i).getString("Departamento"));
                             direccion.add(jsonArray.getJSONObject(i).getString("Direccion"));
                             telefono.add(jsonArray.getJSONObject(i).getString("Telefono"));
                             celular.add(jsonArray.getJSONObject(i).getString("Celular"));
+                            //Toast.makeText(getContext(), jsonArray.getJSONObject(i).getString("Nombre"), Toast.LENGTH_LONG).show();
                         }
 
-                        lista.setAdapter(new PupuseriasFragmento.CustonAdater(getActivity(), nombre, departamento, direccion, telefono, celular));
+                        lista.setAdapter(new PupuseriasFragmento.CustonAdater(getActivity().getApplicationContext(), nombre, departamento, direccion, telefono, celular));
 
-                        final PupuseriasFragmento.CustonAdater CustonAdater =
-                                new PupuseriasFragmento.CustonAdater(getActivity(), nombre, departamento, direccion, telefono, celular);
+                        final CustonAdater CustonAdater =
+                                new CustonAdater(PupuseriasFragmento.this.getActivity().getApplicationContext(), nombre, departamento, direccion, telefono, celular);
                         lista.setAdapter(CustonAdater);
                         progressDialog.dismiss();
 
@@ -136,15 +142,19 @@ public class PupuseriasFragmento extends Fragment {
                                 fragmentTransaction.replace(R.id.nav_host_fragment, fragment);
                                 fragmentTransaction.addToBackStack(null);
                                 fragmentTransaction.commit();
-                                /*
-                                intent = new Intent(view.getContext(), AgregarPupuseriaActivity.class);
-                                intent.putExtra("Pupuseria", String.valueOf(nombre.get(position)));
-                                intent.putExtra("Direccion", String.valueOf(direccion.get(position)));
-                                intent.putExtra("Telefono", String.valueOf(telefono.get(position)));
-                                intent.putExtra("Celular", String.valueOf(celular.get(position)));
 
-                                startActivity(intent);
-                                //finish();*/
+                                pupuseriaDB borrar = new pupuseriaDB(getContext() , "pupusasYa", null, 1);
+                                SQLiteDatabase bdd = borrar.getWritableDatabase(); borrar.onUpgrade(bdd, 1, 1);
+                                bdd.close();
+
+                                pupuseriaDB transaction = new pupuseriaDB(getContext() , "pupusasYa", null, 1);
+                                SQLiteDatabase bd = transaction.getWritableDatabase(); transaction.onUpgrade(bd, 1, 1);
+                                ContentValues registro = new ContentValues();
+                                registro.put("idPupuseria", String.valueOf(idPupuseria.get(position)));
+                                bd.insert("pupuseriaSelected", null, registro);
+                                bd.close();
+
+
                             }
                         });
 
@@ -197,11 +207,8 @@ public class PupuseriasFragmento extends Fragment {
             etDireccion = (TextView) viewGroup.findViewById(R.id.tvDireccion);
             etTelefono = (TextView) viewGroup.findViewById(R.id.tvTelefono);
             etCelular = (TextView) viewGroup.findViewById(R.id.tvCelular);
-            //tnSelect = viewGroup.findViewById(R.id.btnSelect);
-            //etid = (TextView) viewGroup.findViewById(R.id.etIdPupuseria);
 
             etnombre.setText(nombre.get(position).toString());
-            //etid.setText(idproduto.get(position).toString());
             etDepartamento.setText(departamento.get(position).toString());
             etDireccion.setText(direccion.get(position).toString());
             etTelefono.setText(telefono.get(position).toString());
