@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/colorDarkBlue">
+    android:background="@color/colorDarkBlue"
+    tools:context="com.example.pupusasya.MostrarHistorial">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,17 +39,14 @@
             android:gravity="center"
             android:layout_marginTop="20dp">
 
-            <EditText
-                android:id="@+id/etBuscarHist"
-                android:layout_width="300dp"
-                android:layout_height="50dp"
+            <Button
+                android:id="@+id/btnHistorial"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@color/colorWhite"
-                android:gravity="center"
-                android:hint="Buscar Pupuseria"
-                android:textColor="@color/colorOrange"
-                android:textColorHint="@color/colorOrange"
-                android:textSize="20sp" />
+                android:backgroundTint="@color/fui_bgGoogle"
+                android:text="Cargar Historial"
+                android:onClick="cargar"/>
         </LinearLayout>
 
         <LinearLayout
@@ -90,14 +88,7 @@
         android:gravity="center"
         android:layout_marginTop="20dp"
         android:background="@color/colorWhite"
-        >
-
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/listaHistorial"/>
-
-    </LinearLayout>
+        />
 
 
 </LinearLayout>
