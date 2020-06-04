@@ -42,15 +42,23 @@ import cz.msebera.android.httpclient.Header;
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
 public class HistorialFragmento extends Fragment {
+    View vista;
 
-
+    Button boton;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragmento_historial, container, false);
+
+        vista = inflater.inflate(R.layout.fragmento_historial, container, false);
+        boton = vista.findViewById(R.id.btnHistorial);
+
+        return vista;
+
+
 
     }
+
 
 
 
