@@ -52,8 +52,23 @@ public class HistorialFragmento extends Fragment {
 
         vista = inflater.inflate(R.layout.fragmento_historial, container, false);
         boton = vista.findViewById(R.id.btnHistorial);
+        boton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment= new HistorialFragmento();
+                FragmentManager fragmentManager=getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.nav_host_fragment,fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+
+
+            }
+        });
 
         return vista;
+
+
 
 
 

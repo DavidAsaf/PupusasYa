@@ -1,6 +1,9 @@
 package com.example.pupusasya;
 
-public class MostrarHistorial2 {
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
+public class MostrarHistorial2 extends AppCompatActivity {
 
 
 }
