@@ -25,6 +25,7 @@
             android:layout_height="80dp"
             android:background="@mipmap/ic_logo"/>
 
+
     </LinearLayout>
 
         <LinearLayout
@@ -36,12 +37,97 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="85dp"
+                android:layout_height="47dp"
                 android:layout_marginTop="20dp"
                 android:gravity="center"
                 android:text="Registro"
                 android:textColor="@color/colorWhite"
                 android:textSize="25sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/ic_nombrer" />
+
+                <EditText
+                    android:id="@+id/txtnombre"
+                    android:layout_width="280dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:hint="nombre"
+                    android:inputType="text"
+                    android:textColor="@color/colorWhite"
+                    android:textColorHint="@color/colorWhite" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/ic_nombrer" />
+
+                <EditText
+                    android:id="@+id/txtapellido"
+                    android:layout_width="280dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:hint="Apellido"
+                    android:inputType="text"
+                    android:textColor="@color/colorWhite"
+                    android:textColorHint="@color/colorWhite" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/ic_homer" />
+
+                <EditText
+                    android:id="@+id/txtdireccion"
+                    android:layout_width="280dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:hint="Direccion"
+                    android:inputType="text"
+                    android:textColor="@color/colorWhite"
+                    android:textColorHint="@color/colorWhite" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/ic_celular" />
+
+                <EditText
+                    android:id="@+id/txttelefono"
+                    android:layout_width="280dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:hint="Telefono"
+                    android:inputType="text"
+                    android:textColor="@color/colorWhite"
+                    android:textColorHint="@color/colorWhite" />
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -67,7 +153,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="55dp"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -89,22 +175,18 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="160dp"
                 android:gravity="center"
                 android:orientation="vertical">
-
-
                 <Button
                     android:id="@+id/btnregistro"
                     android:layout_width="280dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:Onclick="Save"
                     android:background="@drawable/button_rounded"
                     android:text="Registrarme"
                     android:textColor="@color/colorWhite" />
-
-
-
                 <Button
                     android:id="@+id/btnregresar"
                     android:layout_width="280dp"
