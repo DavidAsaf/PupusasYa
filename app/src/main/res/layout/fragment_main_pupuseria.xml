@@ -45,7 +45,7 @@
         android:layout_height="60dp"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        android:background="@drawable/ic_chat"
-        app:srcCompat="@drawable/ic_chat" />
+        android:background="@color/colorWhite"
+        app:srcCompat="@drawable/ic_carrito" />
 
 </FrameLayout>

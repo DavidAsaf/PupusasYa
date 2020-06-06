@@ -67,7 +67,7 @@ public class MainPupuseriaFragment extends Fragment {
                 String texto = elegido.get_textoTitulo().toString();
 
                 if (texto.equals("Pupusas")){
-                    Fragment fragment = new ListaPupusasFragment();
+                    Fragment fragment = new ListaPupusasFragment(); //listaPupusasFragment es el nombre de mi fragmento a abrir
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.replace(R.id.nav_host_fragment, fragment);
@@ -81,8 +81,14 @@ public class MainPupuseriaFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Boton de carrito", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                //Snackbar.make(view, "Boton de carrito", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+
+                Fragment fragment = new CarritoFragment(); //listaPupusasFragment es el nombre de mi fragmento a abrir
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.nav_host_fragment, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
             }
         });
 

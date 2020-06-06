@@ -41,7 +41,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.2.2'
     implementation 'androidx.navigation:navigation-ui:2.2.2'
     implementation 'com.android.volley:volley:1.1.1'
-    implementation  'com.android.support:support-media-compat:29.0.0'
+    implementation 'com.android.support:support-media-compat:29.0.0'
     //diseño
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:29.0.0'

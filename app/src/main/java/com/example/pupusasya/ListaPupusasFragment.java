@@ -135,7 +135,7 @@ public class ListaPupusasFragment extends Fragment {
                             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                                 final String envio = arrPrecio.get(position).toString().trim();
                                 final String idPro = arrIdProducto.get(position).toString().trim();
-                                mostrarDialogoPersonalizado(arrNombre.get(position).toString(), idPup, envio, idPro);
+                                insertar_aCarrito(arrNombre.get(position).toString(), idPup, envio, idPro);
 
 
                             }
@@ -208,7 +208,7 @@ public class ListaPupusasFragment extends Fragment {
                 }).show();
     }
 
-    private void mostrarDialogoPersonalizado(String especialidad, int idPup, String precio, final String idPro) {
+    private void insertar_aCarrito(String especialidad, final int idPup, String precio, final String idPro) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
         LayoutInflater inflater = getLayoutInflater();
@@ -255,64 +255,35 @@ public class ListaPupusasFragment extends Fragment {
                 String usuarioOnline = prefs.getString("usuario", "");
                 String idPedido = "";
 
-                pedidosDB transaction = new pedidosDB(getContext() , "pupusasYa", null, 1);
-                SQLiteDatabase bd = transaction.getWritableDatabase();
-                //transaction.onUpgrade(bd, 1, 1);
-                Cursor fila = bd.rawQuery("SELECT MAX(idPedido) FROM pedido", null);
-                String retorno= "";
-                if (fila != null && fila.getCount() > 0){
-                    if(fila.moveToFirst()){
-                        retorno= fila.getString(0);
-                        //if (retorno.isEmpty()) retorno = "0";
-                        retorno = String.valueOf((Integer.parseInt(retorno)) + 1);
-                        Toast.makeText(getContext(), "retorno dentro = " + retorno,  Toast.LENGTH_LONG).show();
+                AsyncHttpClient client = new AsyncHttpClient();
+                Conexion connect = new Conexion();
+                String url = connect.getUrlDireccion() +"insertarCarrito.php";
+                RequestParams parametros = new RequestParams();
+                parametros.put("usuario", usuarioOnline);
+                parametros.put("pupuseria", idPup);
+                parametros.put("producto", idPro);
+                parametros.put("cantidad", cantidad);
+
+
+                client.get(url, parametros, new AsyncHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                        if (statusCode == 200) {
+
+                            try {
+                                Toast.makeText(getContext(), "Agregado con éxito", Toast.LENGTH_SHORT).show();
+                            } catch (Exception e) {
+                                //e.printStackTrace();
+                            }
+                        }
                     }
-                    else {
-                        Toast.makeText(getContext(), "No funciona...dentro del if", Toast.LENGTH_LONG).show();
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
                     }
-                }
-                else {
-                    retorno = "1";
-                    Toast.makeText(getContext(), "valor = " + retorno,  Toast.LENGTH_LONG).show();
-                }
+                });
 
-                bd.close();
-
-                //idPedido integer primary key, usuario integer, idPupuseria integer, idProducto integer, cantidad integer
-                //DB trans = new pupuseriaDB(getContext() , "pupusasYa", null, 1);
-                SQLiteDatabase bDatos = transaction.getWritableDatabase();
-                //transaction.onUpgrade(bd, 1, 1);
-                ContentValues registro = new ContentValues();
-                registro.put("idPedido", "8");
-                registro.put("usuario", usuarioOnline);
-                registro.put("idPupuseria", idPupSeleccionada);
-                registro.put("idProducto", idPro);
-                registro.put("cantidad", cantidad);
-                bDatos.insert("pedido", null, registro);
-                bDatos.close();
-
-                //para prueba
-
-
-                pedidosDB transaction2 = new pedidosDB(getContext() , "pupusasYa", null, 1);
-                SQLiteDatabase bData = transaction2.getWritableDatabase();
-                Cursor fila2 = bData.rawQuery("SELECT MAX(idPedido) FROM pedido", null);
-                String retor= "";
-                if (fila2 != null && fila2.getCount() > 0){
-                    if(fila2.moveToFirst()){
-                        retor= fila2.getString(0);
-                        //Toast.makeText(getContext(), "valor encontrado = " + retor,  Toast.LENGTH_LONG).show();
-                    }
-                    else {
-                        Toast.makeText(getContext(), "No funciona...dentro del if", Toast.LENGTH_LONG).show();
-                    }
-                }
-                else {
-                    retor = "Ninguno";
-                    Toast.makeText(getContext(), "valor = " + retor,  Toast.LENGTH_LONG).show();
-                }
-
-                bData.close();
 
                 dialog.dismiss();
             }
