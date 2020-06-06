@@ -34,14 +34,15 @@ public class HistorialFragmento extends Fragment {
         vista = inflater.inflate(R.layout.fragmento_historial, container, false);
         //boton = vista.findViewById(R.id.btnMostrarHist);
         //listado= (ListView) inflater.inflate((R.layout.fragmento_historial), container, false);
-        listado= vista.findViewById(R.id.lsHistorial);
+        listado = vista.findViewById(R.id.lsHistorial);
 
         ObtenerDatos();
 
-       return vista;
+        return vista;
 
 
     }
+
     public void ObtenerDatos() {
 
         AsyncHttpClient client = new AsyncHttpClient();
@@ -65,9 +66,10 @@ public class HistorialFragmento extends Fragment {
             }
         });
     }
+
     public void CargaLista(ArrayList<String> datos) {
-        ArrayAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, datos);
-        listado.setAdapter(adapter);
+        //ArrayAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, datos);
+        //listado.setAdapter(adapter);
     }
 
     public ArrayList<String> obtenerDatosJSON(String response) {
@@ -86,10 +88,11 @@ public class HistorialFragmento extends Fragment {
             }
         } catch (Exception e) {
             e.printStackTrace();
-        } return listado;
+        }
+        return listado;
     }
 
-        }
+}
 
 
 

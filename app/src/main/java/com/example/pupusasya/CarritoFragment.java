@@ -50,6 +50,8 @@ public class CarritoFragment extends Fragment {
     private ArrayList arrIdCarrito,arrIdProducto, arrPrecio, arrProducto, arrCantidad;
     private ListView lista;
     private String idPupSeleccionada;
+    private Double sumaTotal=0.0;
+    TextView tvTotal;
 
     public CarritoFragment(){
 
@@ -67,6 +69,8 @@ public class CarritoFragment extends Fragment {
         arrProducto = new ArrayList();
         arrCantidad = new ArrayList();
 
+        tvTotal = vista.findViewById(R.id.tvTotalCarrito);
+
         pupuseriaDB transaction = new pupuseriaDB(getContext() , "pupusasYa", null, 1);
         SQLiteDatabase bd = transaction.getWritableDatabase();
 
@@ -76,13 +80,18 @@ public class CarritoFragment extends Fragment {
             retorno= fila.getString(0);
 
             mostrarCarrito(retorno);
+            tvTotal.setText("");
+            //final String tot = "Total: " + String.valueOf(sumaTotal);
+            //tvTotal.setText(tot);
             this.idPupSeleccionada = retorno;
+
         }
         else {
             Toast.makeText(getContext(), "No funciona...dentro del if", Toast.LENGTH_LONG).show();
         }
 
         bd.close();
+
 
         return vista;
     }
@@ -146,6 +155,8 @@ public class CarritoFragment extends Fragment {
 
                             }
                         });
+                        //tvTotal.setText("");
+
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -158,6 +169,7 @@ public class CarritoFragment extends Fragment {
 
             }
         });
+
     }
 
 
@@ -197,16 +209,21 @@ public class CarritoFragment extends Fragment {
             tvCantidad = (TextView) viewGroup.findViewById(R.id.tvCantidad);
             tvSubTotal = (TextView) viewGroup.findViewById(R.id.tvSubTotal);
             tvProducto = (TextView) viewGroup.findViewById(R.id.tvProducto);
+            tvTotal = (TextView) viewGroup.findViewById(R.id.tvTotalCarrito);
 
             tvIdCarrito.setText(arrIdCarrito.get(position).toString());
             tvIdProducto.setText(arrIdProducto.get(position).toString());
             tvPrecio.setText(arrPrecio.get(position).toString());
             tvCantidad.setText(arrCantidad.get(position).toString());
             tvProducto.setText(arrProducto.get(position).toString());
+            sumaTotal = sumaTotal + (Double.parseDouble(arrPrecio.get(position).toString()))*(Double.parseDouble(arrCantidad.get(position).toString()));
             tvSubTotal.setText(String.valueOf((Double.parseDouble(arrPrecio.get(position).toString()))*(Double.parseDouble(arrCantidad.get(position).toString()))));
+
+
 
             return viewGroup;
         }
+
     }
 
 }

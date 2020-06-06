@@ -27,9 +27,8 @@ import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
 
-public class RegistroActivity extends AppCompatActivity
-        //implements View.OnClickListener
-        {
+public class RegistroActivity extends AppCompatActivity{
+
     private EditText textcorreo;
     private EditText textcontra;
     private EditText textnombre;
@@ -57,7 +56,7 @@ public class RegistroActivity extends AppCompatActivity
         texttelefonno = (EditText)findViewById(R.id.txttelefono);
         btnRegistrar = (Button) findViewById(R.id.btnregistro);
         progressDialog = new ProgressDialog(this);
-    //    btnRegistrar.setOnClickListener(this);
+
     }
 
     private void registrarUsuario() {
@@ -108,7 +107,8 @@ public class RegistroActivity extends AppCompatActivity
      //  } catch (Exception e) { mensaje("Ups... Parece que no tienes conexión a internet"); }
 
   //  }
-    public void Save(View view) {
+
+    public void registerNewUser(View view) {
         registrarUsuario();
         try {
             if(veryfyEt() == true)

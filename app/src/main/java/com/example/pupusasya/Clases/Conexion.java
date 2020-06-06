@@ -8,12 +8,8 @@ public class Conexion
         return urlDireccion;
     }
 
-<<<<<<< HEAD
-    String urlDireccion = "http://192.168.56.1/pupusasya/";
-=======
-    String urlDireccion = "http://localhost/pupusasya/";
-static Connection con;
->>>>>>> cfa64db85feef1b221fc5f04195c7ea7705879d6
+    String urlDireccion = "http://192.168.1.8/pupusasya/";
+
 
 
 }
