@@ -32,48 +32,23 @@
                 android:textSize="25sp" />
         </LinearLayout>
 
+        <Button
+            android:id="@+id/btnMostrarHist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mostrar Historial" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_marginTop="20dp">
-
-            <Button
-                android:id="@+id/btnHistorial"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:backgroundTint="@color/fui_bgGoogle"
-                android:text="Cargar Historial" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="20dp"></LinearLayout>
+            android:layout_marginTop="20dp"/>
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="20dp">
-
-            <TextView
-                android:id="@+id/etDetalle"
-                android:layout_width="201dp"
-                android:layout_height="wrap_content"
-                android:text="Detalle"
-                android:textColor="@color/colorWhite"
-                android:textSize="20dp" />
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:textColor="@color/colorWhite"
-                android:id="@+id/etNombre1"
-                android:text="Nombre"
-                />
-
-        </LinearLayout>
+            android:layout_marginTop="20dp"/>
 
 
 
@@ -86,7 +61,14 @@
         android:gravity="center"
         android:layout_marginTop="20dp"
         android:background="@color/colorWhite"
-        />
+        >
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lsHistorial"/>
+
+    </LinearLayout>
 
 
 </LinearLayout>
