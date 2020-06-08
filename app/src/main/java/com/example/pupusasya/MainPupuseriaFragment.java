@@ -37,10 +37,10 @@ public class MainPupuseriaFragment extends Fragment {
         vista= inflater.inflate(R.layout.fragment_main_pupuseria, container, false);
 
         ArrayList<insertarTipos> datos = new ArrayList<insertarTipos>();
-        datos.add(new insertarTipos(R.drawable.ic_chat, "Pupusas"));
-        datos.add(new insertarTipos(R.drawable.ic_correor, "Bebidas"));
-        datos.add(new insertarTipos(R.drawable.ic_historial, "Postres"));
-        datos.add(new insertarTipos(R.drawable.ic_celular, "Otros"));
+        datos.add(new insertarTipos(R.drawable.pupusas, "Pupusas"));
+        datos.add(new insertarTipos(R.drawable.cocacola, "Bebidas"));
+        datos.add(new insertarTipos(R.drawable.tiramisu, "Postres"));
+        datos.add(new insertarTipos(R.drawable.panconpollo, "Otros"));
 
         lista = (ListView) vista.findViewById(R.id.listaMenuTipo);
         lista.setAdapter(new tiposAdapter(getActivity().getApplicationContext(), R.layout.lv_main_pupuserias , datos){
@@ -67,11 +67,55 @@ public class MainPupuseriaFragment extends Fragment {
                 String texto = elegido.get_textoTitulo().toString();
 
                 if (texto.equals("Pupusas")){
+                    Bundle datoEnviar = new Bundle();
+                    datoEnviar.putInt("categoria", 1);
+                    datoEnviar.putString("nombre", "Sabores de Pupusas");
                     Fragment fragment = new ListaPupusasFragment(); //listaPupusasFragment es el nombre de mi fragmento a abrir
+                    fragment.setArguments(datoEnviar);
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.replace(R.id.nav_host_fragment, fragment);
                     fragmentTransaction.addToBackStack(null);
+
+                    fragmentTransaction.commit();
+                }
+                else if (texto.equals("Bebidas")){
+                    Bundle datoEnviar = new Bundle();
+                    datoEnviar.putInt("categoria", 2);
+                    datoEnviar.putString("nombre", "Bebidas disponibles");
+                    Fragment fragment = new ListaPupusasFragment(); //listaPupusasFragment es el nombre de mi fragmento a abrir
+                    fragment.setArguments(datoEnviar);
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.nav_host_fragment, fragment);
+                    fragmentTransaction.addToBackStack(null);
+
+                    fragmentTransaction.commit();
+                }
+                else if (texto.equals("Postres")){
+                    Bundle datoEnviar = new Bundle();
+                    datoEnviar.putInt("categoria", 3);
+                    datoEnviar.putString("nombre", "Postres a disfrutar");
+                    Fragment fragment = new ListaPupusasFragment(); //listaPupusasFragment es el nombre de mi fragmento a abrir
+                    fragment.setArguments(datoEnviar);
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.nav_host_fragment, fragment);
+                    fragmentTransaction.addToBackStack(null);
+
+                    fragmentTransaction.commit();
+                }
+                else if (texto.equals("Otros")){
+                    Bundle datoEnviar = new Bundle();
+                    datoEnviar.putInt("categoria", 4);
+                    datoEnviar.putString("nombre", "Y además...");
+                    Fragment fragment = new ListaPupusasFragment(); //listaPupusasFragment es el nombre de mi fragmento a abrir
+                    fragment.setArguments(datoEnviar);
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.nav_host_fragment, fragment);
+                    fragmentTransaction.addToBackStack(null);
+
                     fragmentTransaction.commit();
                 }
             }

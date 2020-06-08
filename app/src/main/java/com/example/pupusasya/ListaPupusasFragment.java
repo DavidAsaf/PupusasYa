@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -30,6 +31,7 @@ import com.example.pupusasya.Clases.Conexion;
 import com.example.pupusasya.Clases.pedidosDB;
 import com.example.pupusasya.Clases.pupuseriaDB;
 import com.example.pupusasya.Model.DialogoCantidad;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -45,9 +47,7 @@ import cz.msebera.android.httpclient.Header;
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class ListaPupusasFragment extends Fragment {
 
     public ListaPupusasFragment() {
@@ -57,6 +57,8 @@ public class ListaPupusasFragment extends Fragment {
     private ArrayList arrIdProducto, arrNombre, arrPrecio;
     private ListView lista;
     private String idPupSeleccionada;
+    private TextView tvTitulo;
+    private ImageView mImageView;
 
 
     @Override
@@ -68,6 +70,13 @@ public class ListaPupusasFragment extends Fragment {
         arrIdProducto = new ArrayList();
         arrNombre = new ArrayList();
         arrPrecio = new ArrayList();
+        tvTitulo = (TextView) vista.findViewById(R.id.tvIndicador);
+
+        Bundle datosRecuperados = getArguments();
+        int idCateg = datosRecuperados.getInt("categoria");
+        final String titulo = datosRecuperados.getString("nombre");
+        final String idCat = String.valueOf(idCateg);
+        tvTitulo.setText(titulo);
 
         pupuseriaDB transaction = new pupuseriaDB(getContext() , "pupusasYa", null, 1);
         SQLiteDatabase bd = transaction.getWritableDatabase();
@@ -77,7 +86,7 @@ public class ListaPupusasFragment extends Fragment {
         if(fila.moveToFirst()){
             retorno= fila.getString(0);
 
-            cargarEspecialidades(retorno);
+            cargarEspecialidades(retorno, idCat);
             this.idPupSeleccionada = retorno;
         }
         else {
@@ -86,11 +95,42 @@ public class ListaPupusasFragment extends Fragment {
 
         bd.close();
 
+
+        mImageView = (ImageView) vista.findViewById(R.id.fotoEspecialidad);
+        if (idCateg == 1){
+            mImageView.setImageResource(R.drawable.pupusas);
+        }
+        else if(idCateg == 2) {
+            mImageView.setImageResource(R.drawable.cocacola);
+        }
+        else if (idCateg == 3) {
+            mImageView.setImageResource(R.drawable.tiramisu);
+        }
+        else {
+            mImageView.setImageResource(R.drawable.panconpollo);
+        }
+
+
+        FloatingActionButton fab = vista.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Snackbar.make(view, "Boton de carrito", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+
+                Fragment fragment = new CarritoFragment(); //listaPupusasFragment es el nombre de mi fragmento a abrir
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.nav_host_fragment, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+
         return vista;
     }
 
 
-    private void cargarEspecialidades(final String idPupuseria) {
+    private void cargarEspecialidades(final String idPupuseria, final String idCategoria) {
         arrIdProducto.clear();
         arrNombre.clear();
         arrPrecio.clear();
@@ -104,7 +144,7 @@ public class ListaPupusasFragment extends Fragment {
         String url = connect.getUrlDireccion() +"showEspecialidades.php";
         RequestParams parametros = new RequestParams();
         parametros.put("idPupuseria", idPupuseria.trim());
-        parametros.put("idTipo", "1");
+        parametros.put("idTipo", idCategoria.trim());
 
         client.get(url, parametros, new AsyncHttpResponseHandler() {
             @Override

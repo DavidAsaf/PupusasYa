@@ -52,6 +52,7 @@ public class CarritoFragment extends Fragment {
     private String idPupSeleccionada;
     private Double sumaTotal=0.0;
     TextView tvTotal;
+    private Button btnAvance;
 
     public CarritoFragment(){
 
@@ -70,6 +71,7 @@ public class CarritoFragment extends Fragment {
         arrCantidad = new ArrayList();
 
         tvTotal = vista.findViewById(R.id.tvTotalCarrito);
+        btnAvance = (Button) vista.findViewById(R.id.btnAvanzar);
 
         pupuseriaDB transaction = new pupuseriaDB(getContext() , "pupusasYa", null, 1);
         SQLiteDatabase bd = transaction.getWritableDatabase();
@@ -80,9 +82,9 @@ public class CarritoFragment extends Fragment {
             retorno= fila.getString(0);
 
             mostrarCarrito(retorno);
-            tvTotal.setText("");
-            //final String tot = "Total: " + String.valueOf(sumaTotal);
-            //tvTotal.setText(tot);
+
+            //final String tot = "Total: " + String.valueOf(mostrarCarrito(retorno));
+
             this.idPupSeleccionada = retorno;
 
         }
@@ -92,8 +94,29 @@ public class CarritoFragment extends Fragment {
 
         bd.close();
 
+        //boton avance
+
+        btnAvance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle datoEnviar = new Bundle();
+                //final double env = Double.parseDouble(tvTotal.getText().toString().trim());
+                datoEnviar.putDouble("total", sumaTotal);
+
+                Fragment fragment = new PrePedido1Fragment(); //listaPupusasFragment es el nombre de mi fragmento a abrir
+                fragment.setArguments(datoEnviar);
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.nav_host_fragment, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
 
         return vista;
+
+
+
     }
 
     private void mostrarCarrito(String idPupuseria) {
@@ -102,6 +125,7 @@ public class CarritoFragment extends Fragment {
         arrPrecio.clear();
         arrCantidad.clear();
         arrProducto.clear();
+        sumaTotal = 0.0;
 
         final int idPup = Integer.parseInt(idPupuseria.trim());
         SharedPreferences prefs = getActivity().getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
@@ -133,7 +157,7 @@ public class CarritoFragment extends Fragment {
                             arrPrecio.add(jsonArray.getJSONObject(i).getString("Precio"));
                             arrProducto.add(jsonArray.getJSONObject(i).getString("Producto"));
                             arrCantidad.add(jsonArray.getJSONObject(i).getString("cantidad"));
-
+                            sumaTotal = sumaTotal + (Double.parseDouble(arrPrecio.get(i).toString().trim()) * Double.parseDouble(arrCantidad.get(i).toString().trim()));
                         }
 
                         lista.setAdapter(new CarritoFragment.CustonAdater(getActivity().getApplicationContext(),
@@ -144,6 +168,8 @@ public class CarritoFragment extends Fragment {
                                         arrIdCarrito, arrIdProducto, arrPrecio, arrProducto, arrCantidad);
                         lista.setAdapter(CustonAdater);
                         progressDialog.dismiss();
+
+                        tvTotal.setText("Total: $" + String.format("%.2f", sumaTotal));
 
                         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
@@ -216,7 +242,7 @@ public class CarritoFragment extends Fragment {
             tvPrecio.setText(arrPrecio.get(position).toString());
             tvCantidad.setText(arrCantidad.get(position).toString());
             tvProducto.setText(arrProducto.get(position).toString());
-            sumaTotal = sumaTotal + (Double.parseDouble(arrPrecio.get(position).toString()))*(Double.parseDouble(arrCantidad.get(position).toString()));
+            //sumaTotal = sumaTotal + (Double.parseDouble(arrPrecio.get(position).toString()))*(Double.parseDouble(arrCantidad.get(position).toString()));
             tvSubTotal.setText(String.valueOf((Double.parseDouble(arrPrecio.get(position).toString()))*(Double.parseDouble(arrCantidad.get(position).toString()))));
 
 

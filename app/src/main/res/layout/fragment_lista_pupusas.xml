@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/colorDarkBlue">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
@@ -17,18 +18,25 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:gravity="center"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Especialidades disponibles"
-                android:id="@+id/tvMessage1"
+                android:text=""
+                android:id="@+id/tvIndicador"
                 android:textSize="25sp"
                 android:textColor="@color/colorWhite"
                 />
+
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="100dp"
+                android:id="@+id/fotoEspecialidad"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/redondear_esquinas_imagenes"/>
         </LinearLayout>
 
         <LinearLayout
@@ -37,23 +45,29 @@
             android:gravity="center"
             android:layout_marginTop="20dp">
 
-            <EditText
-                android:layout_width="300dp"
-                android:layout_height="50dp"
-                android:hint="Buscar Especialidad"
-                android:id="@+id/etBuscarEspecialidad"
-                android:gravity="center"
-                android:textColor="@color/colorOrange"
-                android:textColorHint="@color/colorOrange"
-                android:background="@color/colorWhite"
-                android:textSize="20sp"
-                />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="20dp"></LinearLayout>
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Producto"
+                android:textColor="@color/colorWhite"
+                android:textSize="20sp"
+                android:layout_marginLeft="40dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Precio"
+                android:textColor="@color/colorWhite"
+                android:textSize="20sp"
+                android:layout_marginLeft="150dp"/>
+        </LinearLayout>
 
 
         <LinearLayout
@@ -61,7 +75,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:background="@color/colorWhite"
             >
             <ListView
@@ -74,5 +88,14 @@
 
     </LinearLayout>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:backgroundTint="@color/colorWhite"
+        app:srcCompat="@drawable/ic_carrito" />
 
-</LinearLayout>
+
+</FrameLayout>

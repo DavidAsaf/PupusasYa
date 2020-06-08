@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -31,22 +31,55 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginTop="20dp">
+        android:layout_height="140dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:gravity="center">
+
         <TextView
+            android:id="@+id/tvTotalCarrito"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
+            android:layout_marginTop="50dp"
+            android:text="Total"
             android:textColor="@color/colorWhite"
-            android:textSize="30sp"
-            android:id="@+id/tvTotalCarrito"/>
+            android:textSize="30sp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="190dp"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Producto"
+                android:textColor="@color/colorWhite"
+                android:textSize="20sp"
+                android:layout_marginLeft="40dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cant."
+                android:textColor="@color/colorWhite"
+                android:textSize="20sp"
+                android:layout_marginLeft="70dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sub Total"
+                android:textColor="@color/colorWhite"
+                android:textSize="20sp"
+                android:layout_marginLeft="50dp"/>
+        </LinearLayout>
         <ListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -54,5 +87,14 @@
             android:id="@+id/lvCarri"/>
     </LinearLayout>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:text="Hacer Pedido"
+        android:textColor="@color/colorWhite"
+        android:background="@color/colorGreen"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="5dp"
+        android:id="@+id/btnAvanzar"/>
 
-</LinearLayout>
+</FrameLayout>
