@@ -70,6 +70,7 @@ public class HistorialFragmento extends Fragment {
     public void CargaLista(ArrayList<String> datos) {
         //ArrayAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, datos);
         //listado.setAdapter(adapter);
+        //cambiaré la manera de mostrar los datos en el fragment
     }
 
     public ArrayList<String> obtenerDatosJSON(String response) {
