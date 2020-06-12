@@ -76,7 +76,7 @@ public class PrePedido1Fragment extends Fragment {
             public void onClick(View v) {
 
                 if (rbDelivery.isChecked()){
-                    Toast.makeText(getContext(), "Deliveryyyyyyyyyyyyy", Toast.LENGTH_SHORT).show();
+                    mostrarDialogoBasico2();
                 }
                 else {
                     mostrarDialogoBasico();
@@ -107,14 +107,14 @@ public class PrePedido1Fragment extends Fragment {
 
     private void mostrarDialogoBasico(){
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle("Confirmar enviar pedido");
+        builder.setTitle("Confirmar realizar pedido");
         builder.setMessage("¿Deseas enviar el pedido para ir a recogerlo?")
                 .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss(); //cerramos dialog
                         //Toast.makeText(getContext(), "Siiiiiiiiiii", Toast.LENGTH_SHORT).show();
-                        hacerPedido();
+                        hacerPedido("0");
                     }
                 })
                 .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -125,12 +125,31 @@ public class PrePedido1Fragment extends Fragment {
                 }).show();
     }
 
-    private void hacerPedido() {
-        guardarPedido("0", "0.0");
-        traerCarrito(this.idPupSeleccionadaPre);
+    private void mostrarDialogoBasico2(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Confirmar realizar pedido");
+        builder.setMessage("¿Deseas que tu pedido sea por delivery?")
+                .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss(); //cerramos dialog
+                        hacerPedido("1");
+                    }
+                })
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss(); //cerramos dialog
+                    }
+                }).show();
     }
 
-    private void traerCarrito(String idPupuseria) {
+    private void hacerPedido(String deliv) {
+        guardarPedido(deliv, "0.0");
+        traerCarrito(this.idPupSeleccionadaPre, deliv);
+    }
+
+    private void traerCarrito(String idPupuseria, final String deliv) {
         arrIdCarrito.clear();
         arrIdProducto.clear();
         arrPrecio.clear();
@@ -166,15 +185,13 @@ public class PrePedido1Fragment extends Fragment {
                             arrIdCarrito.add(jsonArray.getJSONObject(i).getString("idCarrito"));
                             arrIdProducto.add(jsonArray.getJSONObject(i).getString("idProducto"));
                             arrCantidad.add(jsonArray.getJSONObject(i).getString("cantidad"));
-                            //sumaTotal = sumaTotal + (Double.parseDouble(arrPrecio.get(i).toString().trim()) * Double.parseDouble(arrCantidad.get(i).toString().trim()));
-                            //if (i < 1) Toast.makeText(getContext(), arrProducto.get(i).toString(), Toast.LENGTH_SHORT).show();
                             guardarDetallePedido(arrCantidad.get(i).toString(), arrIdProducto.get(i).toString(),
                                     usuarioOnline, arrIdCarrito.get(i).toString());
                         }
 
                         progressDialog.dismiss();
-
-                        mostrarPantallaExito();
+                        final int enviar = Integer.parseInt(deliv.trim());
+                        mostrarPantallaExito(enviar);
 
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -217,7 +234,7 @@ public class PrePedido1Fragment extends Fragment {
                 if (statusCode == 200) {
 
                     try {
-                        Toast.makeText(getContext(), "Agregado con éxito", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getContext(), "Agregado con éxito", Toast.LENGTH_SHORT).show();
                     } catch (Exception e) {
                         //e.printStackTrace();
                     }
@@ -268,9 +285,13 @@ public class PrePedido1Fragment extends Fragment {
         });
     }
 
-    private void mostrarPantallaExito() {
-        Fragment fragment = new PrePedido1Fragment(); //listaPupusasFragment es el nombre de mi fragmento a abrir
-        //fragment.setArguments(datoEnviar);
+    private void mostrarPantallaExito(int funcion) {
+        Bundle datoEnviar = new Bundle();
+        //final double env = Double.parseDouble(tvTotal.getText().toString().trim());
+        datoEnviar.putInt("funcion", funcion);
+
+        Fragment fragment = new PedidoRealizadoFragment();
+        fragment.setArguments(datoEnviar);
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.nav_host_fragment, fragment);
