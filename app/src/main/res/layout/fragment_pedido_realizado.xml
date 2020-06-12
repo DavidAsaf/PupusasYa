@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PedidoRealizadoFragment"
+    android:background="@color/colorDarkBlue">
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@mipmap/ic_logo"
+        android:background="@drawable/esquinas_redondeadas"
+        android:layout_gravity="center"
+        android:layout_marginBottom="250dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:background="@drawable/esquinas_redondeadas">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="¡Tu pedido ha sido realizado con éxito!"
+            android:textColor="@color/colorDarkBlue"
+            android:textSize="30sp"
+            android:gravity="center"
+            android:layout_marginTop="30dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pronto recibirás una notificación..."
+            android:textSize="20sp"
+            android:textColor="@color/colorOrange"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"/>
+
+        <Button
+            android:layout_width="300dp"
+            android:layout_height="60dp"
+            android:text="Ir a Pedidos"
+            android:background="@drawable/esquinas_redondeadas"
+            android:backgroundTint="@color/colorGreen"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="40dp"/>
+    </LinearLayout>
+
+
+</FrameLayout>
