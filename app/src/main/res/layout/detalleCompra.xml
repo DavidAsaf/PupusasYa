@@ -25,7 +25,7 @@
                 android:id="@+id/tvMessage7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Historial de pedidos"
+                android:text="Detalle de compra"
                 android:textColor="@color/colorWhite"
                 android:textSize="25sp" />
 
@@ -48,7 +48,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Precio Total"
+                android:text="Cantidad"
                 android:textColor="@color/colorWhite"
                 android:textSize="20sp"
                 android:layout_marginLeft="40dp"/>
@@ -56,7 +56,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nombre"
+                android:text="Total"
                 android:textColor="@color/colorWhite"
                 android:textSize="20sp"
                 android:layout_marginLeft="150dp"/>
@@ -73,21 +73,21 @@
             >
 
             <ListView
-                android:id="@+id/lstPupusas"
+                android:id="@+id/lstCompra"
                 android:layout_width="match_parent"
                 android:layout_height="436dp" />
 
         </LinearLayout>
 
         <Button
-            android:id="@+id/btnDetalleCom"
+            android:id="@+id/btnRegreHist"
             android:layout_width="396dp"
             android:layout_height="60dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
             android:background="@drawable/esquinas_redondeadas"
             android:backgroundTint="@color/colorWhite"
-            android:text="Mostrar Detalle Compra"
+            android:text="Regresar"
             android:textColor="@color/colorBlack" />
     </LinearLayout>
 
