@@ -24,7 +24,8 @@
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
                 android:contentDescription="Foto desmostrativa de tipo"
-                android:src="@mipmap/pupusas" />
+                android:src="@mipmap/pupusas"
+                android:background="@drawable/esquinas_redondeadas"/>
         </LinearLayout>
 
         <LinearLayout

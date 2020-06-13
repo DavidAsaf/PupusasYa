@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public String usuarioOnline;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //Esto es como un tipo variable de sesion, se guardan los datos para usarlos en otro activity.
         SharedPreferences prefs = getSharedPreferences("MisPreferencias",Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putString("usuario", "david.amaya@catolica.edu.sv");
+        editor.putString("usuario", nameCust);
         editor.commit();
 
 

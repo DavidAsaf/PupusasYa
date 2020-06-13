@@ -15,12 +15,16 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -44,7 +48,7 @@ import cz.msebera.android.httpclient.Header;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
-public class CarritoFragment extends Fragment {
+public class CarritoFragment extends Fragment  {
 
     View vista;
     private ArrayList arrIdCarrito,arrIdProducto, arrPrecio, arrProducto, arrCantidad;
@@ -52,7 +56,7 @@ public class CarritoFragment extends Fragment {
     private String idPupSeleccionada;
     private Double sumaTotal=0.0;
     TextView tvTotal;
-    private Button btnAvance;
+    private Button btnAvance, btnEliminarCarrito;
 
     public CarritoFragment(){
 
@@ -72,6 +76,7 @@ public class CarritoFragment extends Fragment {
 
         tvTotal = vista.findViewById(R.id.tvTotalCarrito);
         btnAvance = (Button) vista.findViewById(R.id.btnAvanzar);
+        btnEliminarCarrito = (Button) vista.findViewById(R.id.btnEliminarCarrito);
 
         pupuseriaDB transaction = new pupuseriaDB(getContext() , "pupusasYa", null, 1);
         SQLiteDatabase bd = transaction.getWritableDatabase();
@@ -113,10 +118,77 @@ public class CarritoFragment extends Fragment {
             }
         });
 
+        btnEliminarCarrito.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mostrarDialogoBasico();
+            }
+        });
+
         return vista;
 
 
 
+    }
+
+    private void mostrarDialogoBasico(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Confirmar eliminar");
+        builder.setMessage("¿Deseas borrar todo el contenido agregado a esta pupuseria?")
+                .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss(); //cerramos dialog
+                        eliminarCarrito(idPupSeleccionada);
+                    }
+                })
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss(); //cerramos dialog
+                    }
+                }).show();
+    }
+
+    private void eliminarCarrito (final String pupuseria) {
+
+        SharedPreferences prefs = getActivity().getSharedPreferences("MisPreferencias", Context.MODE_PRIVATE);
+        String usuarioOnline = prefs.getString("usuario", "");
+
+        AsyncHttpClient client = new AsyncHttpClient();
+        Conexion connect = new Conexion();
+        String url = connect.getUrlDireccion() +"eliminandoCarrito.php";
+        RequestParams parametros = new RequestParams();
+        parametros.put("idPupuseria", pupuseria);
+        parametros.put("usuario", usuarioOnline);
+
+
+        client.get(url, parametros, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if (statusCode == 200) {
+
+                    try {
+                        Toast.makeText(getContext(), "Eliminado con éxito", Toast.LENGTH_SHORT).show();
+
+                        Fragment fragment = new PupuseriasFragmento(); //listaPupusasFragment es el nombre de mi fragmento a abrir
+                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.nav_host_fragment, fragment);
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
+
+                    } catch (Exception e) {
+                        //e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+            }
+        });
     }
 
     private void mostrarCarrito(String idPupuseria) {
@@ -174,9 +246,9 @@ public class CarritoFragment extends Fragment {
                         lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                                //final String envio = arrPrecio.get(position).toString().trim();
-                                //final String idPro = arrIdProducto.get(position).toString().trim();
-                                //insertar_aCarrito(arrNombre.get(position).toString(), idPup, envio, idPro);
+                                final String envio = arrPrecio.get(position).toString().trim();
+                                final String idPro = arrIdProducto.get(position).toString().trim();
+                                editandoCarrito(arrProducto.get(position).toString(), idPup, envio, idPro, arrCantidad.get(position).toString().trim(), arrIdCarrito.get(position).toString().trim());
 
 
                             }
@@ -243,12 +315,168 @@ public class CarritoFragment extends Fragment {
             tvCantidad.setText(arrCantidad.get(position).toString());
             tvProducto.setText(arrProducto.get(position).toString());
             //sumaTotal = sumaTotal + (Double.parseDouble(arrPrecio.get(position).toString()))*(Double.parseDouble(arrCantidad.get(position).toString()));
-            tvSubTotal.setText(String.valueOf((Double.parseDouble(arrPrecio.get(position).toString()))*(Double.parseDouble(arrCantidad.get(position).toString()))));
+            tvSubTotal.setText(String.format("%.2f", (Double.parseDouble(arrPrecio.get(position).toString()))*(Double.parseDouble(arrCantidad.get(position).toString()))));
 
 
 
             return viewGroup;
         }
+
+    }
+
+    private void editandoCarrito(String especialidad, final int idPup, String precio, final String idPro, final String canti, final String idCarr) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+        LayoutInflater inflater = getLayoutInflater();
+
+        vista = inflater.inflate(R.layout.edicion_carrito, null);
+        builder.setView(vista);
+
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+
+        TextView txtPupuseria = vista.findViewById(R.id.tvProdC);
+        TextView txtPrecio = vista.findViewById(R.id.tvPrecioC);
+        TextView txtSub = vista.findViewById(R.id.tvSubTotalC);
+        final EditText etCantidad = vista.findViewById(R.id.etCantidad);
+
+        etCantidad.setText(canti.trim());
+        txtPupuseria.setText(especialidad);
+        double pre = Double.parseDouble(precio.trim());
+        txtPrecio.setText(String.format("%.2f", pre));
+        double calcSubTotal = Double.parseDouble(precio) * Double.parseDouble(canti.trim());
+        txtSub.setText(String.format("%.2f", calcSubTotal));
+
+        etCantidad.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                TextView pre = vista.findViewById(R.id.tvPrecioC);
+                TextView sub = vista.findViewById(R.id.tvSubTotalC);
+                String cantt = etCantidad.getText().toString().trim();
+
+                if (TextUtils.isEmpty(cantt)){
+                    sub.setText("");
+                    sub.setText(String.format("%.2f", 0.0));
+                }
+                else {
+                    double calculo = Double.parseDouble(etCantidad.getText().toString().trim()) * Double.parseDouble(pre.getText().toString());
+
+                    sub.setText("");
+                    sub.setText(String.format("%.2f", calculo));
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+
+
+
+        Button btnAgregar = vista.findViewById(R.id.btnEditarCarrito);
+        btnAgregar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText etCanti = vista.findViewById(R.id.etCantidad);
+                String cantidad = etCanti.getText().toString().trim();
+
+                AsyncHttpClient client = new AsyncHttpClient();
+                Conexion connect = new Conexion();
+                String url = connect.getUrlDireccion() +"editandoCarrito.php";
+                RequestParams parametros = new RequestParams();
+                parametros.put("idCarrito", idCarr);
+                parametros.put("cantidad", cantidad);
+
+
+                client.get(url, parametros, new AsyncHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                        if (statusCode == 200) {
+
+                            try {
+                                Toast.makeText(getContext(), "Actualizado con éxito", Toast.LENGTH_SHORT).show();
+                            } catch (Exception e) {
+                                //e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+                    }
+                });
+
+                //lista.setAdapter(null);
+
+                dialog.dismiss();
+                Fragment fragment = new CarritoFragment(); //listaPupusasFragment es el nombre de mi fragmento a abrir
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.nav_host_fragment, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+
+        Button btnBorrar = vista.findViewById(R.id.btnQuitarCarrito);
+        btnBorrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AsyncHttpClient client = new AsyncHttpClient();
+                Conexion connect = new Conexion();
+                String url = connect.getUrlDireccion() +"quitandoIdCarrito.php";
+                RequestParams parametros = new RequestParams();
+                parametros.put("idCarrito", idCarr);
+
+
+                client.get(url, parametros, new AsyncHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                        if (statusCode == 200) {
+
+                            try {
+                                Toast.makeText(getContext(), "Quitado con éxito", Toast.LENGTH_SHORT).show();
+                            } catch (Exception e) {
+                                //e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+                    }
+                });
+
+                //lista.setAdapter(null);
+
+                dialog.dismiss();
+                Fragment fragment = new CarritoFragment(); //listaPupusasFragment es el nombre de mi fragmento a abrir
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.nav_host_fragment, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+
+        Button btnCancelar = vista.findViewById(R.id.btnCancelarCarrito);
+        btnCancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
 
     }
 

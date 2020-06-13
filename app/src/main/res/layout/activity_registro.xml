@@ -123,7 +123,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:hint="Telefono"
-                    android:inputType="text"
+                    android:inputType="phone"
                     android:textColor="@color/colorWhite"
                     android:textColorHint="@color/colorWhite" />
             </LinearLayout>
@@ -145,7 +145,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:hint="Correo"
-                    android:inputType="text"
+                    android:inputType="textEmailAddress"
                     android:textColor="@color/colorWhite"
                     android:textColorHint="@color/colorWhite" />
             </LinearLayout>

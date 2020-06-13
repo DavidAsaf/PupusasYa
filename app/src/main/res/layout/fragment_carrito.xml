@@ -31,25 +31,37 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="140dp"
+        android:layout_height="210dp"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:gravity="center">
+        android:layout_marginBottom="100dp"
+        android:gravity="center"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/tvTotalCarrito"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="70dp"
+            android:layout_marginBottom="20dp"
             android:text="Total"
             android:textColor="@color/colorWhite"
             android:textSize="30sp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:text="Eliminar Carrito"
+            android:textColor="@color/colorWhite"
+            android:backgroundTint="@color/colorRed"
+            android:background="@drawable/esquinas_redondeadas"
+            android:layout_marginBottom="5dp"
+            android:id="@+id/btnEliminarCarrito"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="190dp"
+        android:layout_marginTop="240dp"
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
@@ -87,6 +99,8 @@
             android:id="@+id/lvCarri"/>
     </LinearLayout>
 
+
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="45dp"
@@ -94,7 +108,9 @@
         android:textColor="@color/colorWhite"
         android:background="@color/colorGreen"
         android:layout_gravity="bottom|end"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="1dp"
         android:id="@+id/btnAvanzar"/>
+
+
 
 </FrameLayout>

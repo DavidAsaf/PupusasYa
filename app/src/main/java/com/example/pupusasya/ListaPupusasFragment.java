@@ -230,9 +230,11 @@ public class ListaPupusasFragment extends Fragment {
             etPupusa = (TextView) viewGroup.findViewById(R.id.tvEspecialidad);
             etPrecio = (TextView) viewGroup.findViewById(R.id.tvPrecio);
 
+            double take = Double.parseDouble(arrPrecio.get(position).toString());
+
             etIdPupusa.setText(arrIdProducto.get(position).toString());
             etPupusa.setText(arrNombre.get(position).toString());
-            etPrecio.setText(arrPrecio.get(position).toString());
+            etPrecio.setText(String.format("%.2f", take));
 
             return viewGroup;
         }
@@ -278,7 +280,7 @@ public class ListaPupusasFragment extends Fragment {
                 double calculo = Double.parseDouble(spinn.getSelectedItem().toString()) * Double.parseDouble(pre.getText().toString());
                 TextView sub = vista.findViewById(R.id.tvSubTotal);
                 sub.setText("");
-                sub.setText(String.valueOf(calculo));
+                sub.setText(String.format("%.2f",calculo));
             }
 
             @Override
