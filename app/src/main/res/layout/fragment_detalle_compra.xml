@@ -76,20 +76,10 @@
             <ListView
                 android:id="@+id/lstCompra"
                 android:layout_width="match_parent"
-                android:layout_height="436dp" />
+                android:layout_height="match_parent" />
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/btnRegreHist"
-            android:layout_width="396dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/esquinas_redondeadas"
-            android:backgroundTint="@color/colorWhite"
-            android:text="Regresar"
-            android:textColor="@color/colorBlack" />
     </LinearLayout>
 
 

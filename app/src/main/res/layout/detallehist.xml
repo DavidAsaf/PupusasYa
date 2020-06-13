@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/colorDarkBlue"
-    tools:context="com.example.pupusasya.MostrarHistorial2">
+    android:background="@color/colorDarkBlue">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,18 +18,19 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="54dp"
-            android:layout_marginTop="20dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:layout_marginTop="20dp">
 
             <TextView
-                android:id="@+id/tvMessage7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Historial de pedidos"
+                android:text="Detalle de Compra"
+                android:id="@+id/tvMessage7"
+                android:textSize="25sp"
                 android:textColor="@color/colorWhite"
-                android:textSize="25sp" />
+                />
         </LinearLayout>
 
         <LinearLayout
@@ -46,10 +46,10 @@
             android:layout_marginTop="20dp">
 
             <TextView
-                android:id="@+id/etDetalle3"
+                android:id="@+id/etProduct5"
                 android:layout_width="201dp"
                 android:layout_height="wrap_content"
-                android:text="Detalle"
+                android:text="Cantidad"
                 android:textColor="@color/colorWhite"
                 android:textSize="20dp" />
             <TextView
@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:textColor="@color/colorWhite"
-                android:id="@+id/etNombre3"
+                android:id="@+id/etPreci5"
                 android:text="Nombre"
                 />
 
@@ -79,7 +79,7 @@
         <ListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/lsHistorial"/>
+            android:id="@+id/listaDetalle2"/>
 
     </LinearLayout>
 
