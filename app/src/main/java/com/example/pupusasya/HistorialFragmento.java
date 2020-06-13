@@ -61,7 +61,7 @@ public class HistorialFragmento extends Fragment {
         lista = (ListView) vista.findViewById(R.id.lsHistorial);
 
         IdHistorial = new ArrayList();
-        Detalle = new ArrayList();
+        //Detalle = new ArrayList();
         PrecioTotal = new ArrayList();
         Delivery = new ArrayList();
         Nombre = new ArrayList();
@@ -75,7 +75,7 @@ public class HistorialFragmento extends Fragment {
 
     public void cargarHistorial(){
         IdHistorial.clear();
-        Detalle.clear();
+        //Detalle.clear();
         PrecioTotal.clear();
         Delivery.clear();
         Nombre.clear();
@@ -99,7 +99,7 @@ public class HistorialFragmento extends Fragment {
                         JSONArray jsonArray = new JSONArray(new String(responseBody));
                         for (int i = 0; i < jsonArray.length(); i++) {
                             IdHistorial.add(jsonArray.getJSONObject(i).getString("IdHistorial"));
-                            Detalle.add(jsonArray.getJSONObject(i).getString("Detalle"));
+                           // Detalle.add(jsonArray.getJSONObject(i).getString("Detalle"));
                             PrecioTotal.add(jsonArray.getJSONObject(i).getString("PrecioTotal"));
                             Delivery.add(jsonArray.getJSONObject(i).getString("Delivery"));
                             Nombre.add(jsonArray.getJSONObject(i).getString("Nombre"));
@@ -107,10 +107,10 @@ public class HistorialFragmento extends Fragment {
                             //Toast.makeText(getContext(), jsonArray.getJSONObject(i).getString("Nombre"), Toast.LENGTH_LONG).show();
                         }
 
-                        lista.setAdapter(new HistorialFragmento.CustonAdater(getActivity().getApplicationContext(), Detalle, PrecioTotal, Delivery, Nombre, Estado));
+                        lista.setAdapter(new HistorialFragmento.CustonAdater(getActivity().getApplicationContext(),  PrecioTotal, Delivery, Nombre, Estado));
 
                         final HistorialFragmento.CustonAdater CustonAdater =
-                                new HistorialFragmento.CustonAdater(HistorialFragmento.this.getActivity().getApplicationContext(), Detalle, PrecioTotal, Delivery, Nombre, Estado);
+                                new HistorialFragmento.CustonAdater(HistorialFragmento.this.getActivity().getApplicationContext(),  PrecioTotal, Delivery, Nombre, Estado);
                         lista.setAdapter(CustonAdater);
                         progressDialog.dismiss();
 
@@ -139,10 +139,10 @@ public class HistorialFragmento extends Fragment {
     static class CustonAdater extends BaseAdapter {
         Context ctx;
         LayoutInflater layoutInflater;
-        TextView etDetalle, etPrecioTo, etid, etDelivery, etNombre, etEstado;
+        TextView  etPrecioTo, etid, etDelivery, etNombre, etEstado;
         Button btnSelect;
 
-        public CustonAdater(Context applicationContext, ArrayList Detalle, ArrayList PrecioTotal, ArrayList Delivery, ArrayList Nombre, ArrayList Estado) {
+        public CustonAdater(Context applicationContext, ArrayList PrecioTotal, ArrayList Delivery, ArrayList Nombre, ArrayList Estado) {
             this.ctx = applicationContext;
             layoutInflater = (LayoutInflater) this.ctx.getSystemService(LAYOUT_INFLATER_SERVICE);
 
@@ -168,7 +168,7 @@ public class HistorialFragmento extends Fragment {
             ViewGroup viewGroup1 = (ViewGroup) layoutInflater.inflate(R.layout.fragmento_historial, null);
 
 
-            etDetalle.setText(Detalle.get(position).toString());
+            //etDetalle.setText(Detalle.get(position).toString());
             etPrecioTo.setText(PrecioTotal.get(position).toString());
             etDelivery.setText(Delivery.get(position).toString());
             etNombre.setText(Nombre.get(position).toString());
