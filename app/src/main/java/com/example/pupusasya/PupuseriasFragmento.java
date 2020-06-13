@@ -45,7 +45,12 @@ import static com.firebase.ui.auth.AuthUI.getApplicationContext;
 
 public class PupuseriasFragmento extends Fragment {
     private ListView lista;
-    private ArrayList nombre, idPupuseria, departamento, direccion, telefono, celular;
+    private static ArrayList nombre;
+    private ArrayList idPupuseria;
+    private static ArrayList departamento;
+    private static ArrayList direccion;
+    private static ArrayList telefono;
+    private static ArrayList celular;
     private TextView m;
     private EditText txtBuscarPup;
     private String id, resultado;
@@ -90,7 +95,7 @@ public class PupuseriasFragmento extends Fragment {
         return vista;
     }
 
-    private void cargarPupuserias(){
+    public void cargarPupuserias(){
         nombre.clear();
         idPupuseria.clear();
         departamento.clear();
@@ -172,7 +177,7 @@ public class PupuseriasFragmento extends Fragment {
     }
 
 
-    private class CustonAdater extends BaseAdapter {
+    static class CustonAdater extends BaseAdapter {
         Context ctx;
         LayoutInflater layoutInflater;
         TextView etnombre, etDepartamento, etid, etDireccion, etTelefono, etCelular;

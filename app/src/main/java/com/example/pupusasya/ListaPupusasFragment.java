@@ -54,7 +54,9 @@ public class ListaPupusasFragment extends Fragment {
         // Required empty public constructor
     }
     View vista;
-    private ArrayList arrIdProducto, arrNombre, arrPrecio;
+    private static ArrayList arrIdProducto;
+    private static ArrayList arrNombre;
+    private static ArrayList arrPrecio;
     private ListView lista;
     private String idPupSeleccionada;
     private TextView tvTitulo;
@@ -195,7 +197,7 @@ public class ListaPupusasFragment extends Fragment {
     }
 
 
-    private class CustonAdater extends BaseAdapter {
+    static class CustonAdater extends BaseAdapter {
         Context ctx;
         LayoutInflater layoutInflater;
         TextView etIdPupusa, etPupusa, etPrecio;
